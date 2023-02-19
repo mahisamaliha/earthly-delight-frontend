@@ -182,22 +182,11 @@
 }
 
 .la-spin {
-  -webkit-animation: la-spin 2s infinite linear;
   animation: la-spin 2s infinite linear;
 }
 
 .la-pulse {
-  -webkit-animation: la-spin 1s infinite steps(8);
   animation: la-spin 1s infinite steps(8);
-}
-
-@-webkit-keyframes la-spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 @keyframes la-spin {
   0% {

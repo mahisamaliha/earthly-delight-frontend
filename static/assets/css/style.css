@@ -459,9 +459,6 @@ input:focus, input:active {
 .custom-input__field::-moz-placeholder {
   color: #B0B0B0;
 }
-.custom-input__field:-ms-input-placeholder {
-  color: #B0B0B0;
-}
 .custom-input__field::placeholder {
   color: #B0B0B0;
 }
@@ -497,9 +494,6 @@ input:focus, input:active {
     padding: 6px 15px;
   }
   .custom-input__field::-moz-placeholder {
-    font-size: 15px !important;
-  }
-  .custom-input__field:-ms-input-placeholder {
     font-size: 15px !important;
   }
   .custom-input__field::placeholder {
@@ -551,9 +545,6 @@ input:focus, input:active {
     padding: 10px 10px !important;
   }
   .custom-input__field::-moz-placeholder {
-    font-size: 12px !important;
-  }
-  .custom-input__field:-ms-input-placeholder {
     font-size: 12px !important;
   }
   .custom-input__field::placeholder {
@@ -2643,9 +2634,6 @@ h1, h2, h3, h4, h5, h6 {
 .signIn-section--card-input form .custom-input__group input::-moz-placeholder {
   font-size: 16px !important;
 }
-.signIn-section--card-input form .custom-input__group input:-ms-input-placeholder {
-  font-size: 16px !important;
-}
 .signIn-section--card-input form .custom-input__group input::placeholder {
   font-size: 16px !important;
 }
@@ -2679,9 +2667,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 10px !important;
   }
   .signIn-section--card-input form .custom-input__group input::-moz-placeholder {
-    font-size: 14px !important;
-  }
-  .signIn-section--card-input form .custom-input__group input:-ms-input-placeholder {
     font-size: 14px !important;
   }
   .signIn-section--card-input form .custom-input__group input::placeholder {
@@ -2779,9 +2764,6 @@ h1, h2, h3, h4, h5, h6 {
 .cart-section--coupon input::-moz-placeholder {
   font-size: 16px;
 }
-.cart-section--coupon input:-ms-input-placeholder {
-  font-size: 16px;
-}
 .cart-section--coupon input::placeholder {
   font-size: 16px;
 }
@@ -2859,9 +2841,6 @@ h1, h2, h3, h4, h5, h6 {
   .cart-section--coupon input::-moz-placeholder {
     font-size: 14px;
   }
-  .cart-section--coupon input:-ms-input-placeholder {
-    font-size: 14px;
-  }
   .cart-section--coupon input::placeholder {
     font-size: 14px;
   }
@@ -2906,9 +2885,6 @@ h1, h2, h3, h4, h5, h6 {
     padding: 10px 20px;
   }
   .cart-section--coupon input::-moz-placeholder {
-    font-size: 12px;
-  }
-  .cart-section--coupon input:-ms-input-placeholder {
     font-size: 12px;
   }
   .cart-section--coupon input::placeholder {
@@ -3066,9 +3042,6 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 20px;
 }
 .product-details--quantity---button .min-max input::-moz-placeholder {
-  color: #0c0c0c;
-}
-.product-details--quantity---button .min-max input:-ms-input-placeholder {
   color: #0c0c0c;
 }
 .product-details--quantity---button .min-max input::placeholder {
@@ -3298,10 +3271,6 @@ h1, h2, h3, h4, h5, h6 {
   color: #a4a1a1;
   font-size: 14px;
 }
-.tab-section .review-tab--input---area .custom-input__group input:-ms-input-placeholder {
-  color: #a4a1a1;
-  font-size: 14px;
-}
 .tab-section .review-tab--input---area .custom-input__group input::placeholder {
   color: #a4a1a1;
   font-size: 14px;
@@ -3330,10 +3299,6 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 20px;
 }
 .tab-section .review-tab--input---text-area textarea::-moz-placeholder {
-  color: #a4a1a1;
-  font-size: 14px;
-}
-.tab-section .review-tab--input---text-area textarea:-ms-input-placeholder {
   color: #a4a1a1;
   font-size: 14px;
 }
@@ -3593,10 +3558,6 @@ h1, h2, h3, h4, h5, h6 {
     color: #a4a1a1;
     font-size: 14px;
   }
-  .tab-section .review-tab--input---area .custom-input__group input:-ms-input-placeholder {
-    color: #a4a1a1;
-    font-size: 14px;
-  }
   .tab-section .review-tab--input---area .custom-input__group input::placeholder {
     color: #a4a1a1;
     font-size: 14px;
@@ -3730,10 +3691,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   color: #b9b9b9;
 }
-.feedback-input--area .input-field .custom-input__group input:-ms-input-placeholder {
-  font-weight: 400;
-  color: #b9b9b9;
-}
 .feedback-input--area .input-field .custom-input__group input::placeholder {
   font-weight: 400;
   color: #b9b9b9;
@@ -3748,10 +3705,6 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 18px;
 }
 .feedback-input--area .textarea-field textarea::-moz-placeholder {
-  font-weight: 400;
-  color: #b9b9b9;
-}
-.feedback-input--area .textarea-field textarea:-ms-input-placeholder {
   font-weight: 400;
   color: #b9b9b9;
 }
@@ -4241,9 +4194,6 @@ h1, h2, h3, h4, h5, h6 {
 .dashboard-account .account-details .input-field .custom-input__group input::-moz-placeholder {
   font-size: 14px;
 }
-.dashboard-account .account-details .input-field .custom-input__group input:-ms-input-placeholder {
-  font-size: 14px;
-}
 .dashboard-account .account-details .input-field .custom-input__group input::placeholder {
   font-size: 14px;
 }
@@ -4304,9 +4254,6 @@ h1, h2, h3, h4, h5, h6 {
 .dashboard-report .report-details .input-field .custom-input__group input::-moz-placeholder {
   font-size: 14px;
 }
-.dashboard-report .report-details .input-field .custom-input__group input:-ms-input-placeholder {
-  font-size: 14px;
-}
 .dashboard-report .report-details .input-field .custom-input__group input::placeholder {
   font-size: 14px;
 }
@@ -4323,10 +4270,6 @@ h1, h2, h3, h4, h5, h6 {
   resize: none;
 }
 .dashboard-report .report-details .textarea-field textarea::-moz-placeholder {
-  font-size: 14px;
-  color: #bbbbbb;
-}
-.dashboard-report .report-details .textarea-field textarea:-ms-input-placeholder {
   font-size: 14px;
   color: #bbbbbb;
 }
@@ -4574,9 +4517,6 @@ h1, h2, h3, h4, h5, h6 {
   .dashboard-report .report-details .input-field .custom-input__group .custom-input__field input::-moz-placeholder {
     font-size: 14px;
   }
-  .dashboard-report .report-details .input-field .custom-input__group .custom-input__field input:-ms-input-placeholder {
-    font-size: 14px;
-  }
   .dashboard-report .report-details .input-field .custom-input__group .custom-input__field input::placeholder {
     font-size: 14px;
   }
@@ -4588,9 +4528,6 @@ h1, h2, h3, h4, h5, h6 {
     padding: 12px 15px;
   }
   .dashboard-report .report-details .textarea-field textarea::-moz-placeholder {
-    font-size: 12px;
-  }
-  .dashboard-report .report-details .textarea-field textarea:-ms-input-placeholder {
     font-size: 12px;
   }
   .dashboard-report .report-details .textarea-field textarea::placeholder {

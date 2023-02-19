@@ -62,9 +62,6 @@
             <nuxt-link class="nav-link" to="/about">About Us</nuxt-link>
           </li>
           <li class="nav-item">
-            <nuxt-link class="nav-link" to="/auction">Auction</nuxt-link>
-          </li>
-          <li class="nav-item">
             <nuxt-link class="nav-link" to="/wishlist">Wishlist</nuxt-link>
           </li>
           <li class="nav-item">
@@ -151,7 +148,6 @@
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="#">Action</a></li>
                 <li><a class="dropdown-item" href="#">Another action</a></li>
-
                 <li>
                   <a class="dropdown-item" href="#">Something else here</a>
                 </li>
@@ -159,9 +155,6 @@
             </li> -->
             <li class="nav-item">
               <nuxt-link class="nav-link" to="/about">About Us</nuxt-link>
-            </li>
-            <li class="nav-item">
-              <nuxt-link class="nav-link" to="/auction">Auction</nuxt-link>
             </li>
             <li class="nav-item">
               <nuxt-link class="nav-link" to="/wishlist">Wishlist</nuxt-link>
@@ -261,7 +254,6 @@ export default {
       isDataLoading: true,
     };
   },
-
   watch: {
     search(after, before) {
       this.getResults();
@@ -306,7 +298,6 @@ export default {
         this.mobileDropdownIndex = index;
       }
     },
-
     async filterProducts() {
       this.isLoading = true;
       const response = await this.callApi(
@@ -318,7 +309,6 @@ export default {
       } else this.swr();
       this.isLoading = false;
     },
-
     getSearchedProduct(result) {
       //     const res = await this.callApi(
       //     "get",
@@ -346,7 +336,6 @@ export default {
       this.isLoading = false;
     },
   },
-
   async asyncData({ app, store, redirect, params }) {
     try {
       let [res1] = await Promise.all([

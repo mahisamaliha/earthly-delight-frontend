@@ -81,9 +81,10 @@ Vue.mixin({
             this.$store.commit('removeAll',[])
         },
         async getCartItemsServer(){
-            const res = await this.callApi('get','/app/get_cart')
+            const res = await this.callApi('get',`/app/get_cart?userId=${this.authUser.id}`)
             if(res.status == 200){
                 this.$store.dispatch('updateCart', res.data.allCarts)
+                this.$store.state.order.invoiceTotal = res.data.total
             }
             else {
                 this.swr();
@@ -147,4 +148,3 @@ Vue.mixin({
         }
     }
 })
-

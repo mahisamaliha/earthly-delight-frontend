@@ -321,16 +321,18 @@ export default {
         this.$store.commit('updateCart', response.data.data)
         this.carts = response.data.data;
         this.total = response.data.total;
+        this.order.invoiceTotal = this.total
       }
       //else this.swr();
       this.isLoading = false;
     },
     async remove(index) {
-      if (this.carts[index].id) {
-        this.remove_id = this.carts[index].id;
+      if (this.cartItem[index].id) {
+        this.remove_id = this.cartItem[index].id;
       }
       this.removeItemServer(this.remove_id, index)
-
+      this.getCart();
+      // this.getCartItemsServer();
       return
       this.isLoading = true;
       const res = await this.callApi(
@@ -361,7 +363,7 @@ export default {
       return this.$store.state.order.coupon;
     },
     totalCostWithShipping() {
-      let cost = this.order.invoiceTotal;
+      let cost =  this.total;
       if (this.order.membershipDiscount > 0) {
         var totalOld = cost
         var discountAmount = (this.order.membershipDiscount * totalOld) / 100
@@ -433,7 +435,6 @@ export default {
     }
     // console.log("Cart page");
     await this.getCart();
-    // console.log(this.$store.state.order);
   },
 };
 </script>

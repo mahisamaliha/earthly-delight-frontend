@@ -551,7 +551,7 @@ export default {
       }
       let order = this.order;
       if (this.authUser) {
-        if (this.authUser.customer.barcode) {
+        if (this.authUser.customer && this.authUser.customer.barcode) {
           console.log("Yes");
           this.order.discount = 10;
           this.order.discountType = "Membership Discount";
