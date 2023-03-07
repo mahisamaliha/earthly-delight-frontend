@@ -1,0 +1,12 @@
+// Add variables here
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.article-sub--section {
+    figure {
+        img {
+            max-width: 700px;
+            width: 100%;
+        }
+    }
+}

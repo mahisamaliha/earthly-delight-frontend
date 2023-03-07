@@ -106,9 +106,9 @@
             <button @click="addCart"><i class="las la-plus"></i>Add To Cart</button>
           </div>
         </div>
-        <h4 class="product-details--category">
+        <!-- <h4 class="product-details--category">
           Category: <span>{{ productDetails.catName }}</span>
-        </h4>
+        </h4> -->
         <div class="product-details--wishlist">
           <i @click="addWishList(productDetails)" v-if="isWishlist" class="lar la-heart wishList active"></i>
           <i @click="addWishList(productDetails)" v-if="!isWishlist" class="lar la-heart wishList"></i>
@@ -129,7 +129,7 @@
 
     <!--************Description****************-->
 
-    <section class="tab-section pt-50">
+    <section class="tab-section pt-50 pb-50">
       <div class="section-header__action container">
         <ul class="section-header__action--tab">
           <li
@@ -149,7 +149,7 @@
       </div>
       <div class="description-tab" v-if="isProductInfoIndex === 1">
         <div
-          class="description-tab--details container"
+          class="description-tab--details container pt-30"
           v-html="productDetails.brief_description"
         ></div>
       </div>

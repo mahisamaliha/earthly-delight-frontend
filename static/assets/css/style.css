@@ -1979,6 +1979,10 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: 1.5px solid #008631;
 }
 
+.article--section-main {
+  cursor: pointer;
+}
+
 @media (max-width: 1199px) {
   .newsletter-section__content {
     padding-right: 1vw;
@@ -5127,6 +5131,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 .auction-area .bidding-details {
   width: 50%;
+}
+
+.article-sub--section figure img {
+  max-width: 700px;
+  width: 100%;
 }
 
 body {

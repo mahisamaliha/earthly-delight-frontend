@@ -1,10 +1,7 @@
 <template>
   <!--************Navbar****************-->
   <header>
-    <div
-      class="navbar-mobile--wrapper d-lg-none"
-      v-bind:class="{ active: isSidebar }"
-    >
+    <div class="navbar-mobile--wrapper d-lg-none" v-bind:class="{ active: isSidebar }">
       <div class="navbar-mobile">
         <div class="navbar-mobile--head">
           <div class="header-brand">
@@ -18,16 +15,10 @@
         </div>
         <ul class="navbar-mobile--body">
           <li class="nav-item">
-            <nuxt-link class="nav-link active" aria-current="page" to="/"
-              >Home</nuxt-link
-            >
+            <nuxt-link class="nav-link active" aria-current="page" to="/">Home</nuxt-link>
           </li>
           <li class="nav-item dropdown">
-            <nuxt-link
-              class="nav-link dropdown-toggle"
-              to="/shop"
-              v-on:click="mobileMenuDropdown(0)"
-            >
+            <nuxt-link class="nav-link dropdown-toggle" to="/shop" v-on:click="mobileMenuDropdown(0)">
               Shop
             </nuxt-link>
             <transition name="slide">
@@ -61,20 +52,19 @@
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/about">About Us</nuxt-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <nuxt-link class="nav-link" to="/wishlist">Wishlist</nuxt-link>
+          </li> -->
+          <li class="nav-item">
+            <nuxt-link class="nav-link" to="/auction">Auction</nuxt-link>
           </li>
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/contactUs">Contact Us</nuxt-link>
           </li>
         </ul>
         <div class="navbar-mobile--info bg-gray">
-          <div
-            class="navbar-mobile--info-item"
-            v-for="(data, index) in dataBanner.data"
-            :key="index"
-            v-if="data.type == 'topPromotionalBanner'"
-          >
+          <div class="navbar-mobile--info-item" v-for="(data, index) in dataBanner.data" :key="index"
+            v-if="data.type == 'topPromotionalBanner'">
             {{ data.title }}
           </div>
         </div>
@@ -94,11 +84,7 @@
         </div>
       </div>
     </div>
-    <div
-      class="navbar-search"
-      v-bind:class="{ active: isSearchbar }"
-      ref="searchBox"
-    >
+    <div class="navbar-search" v-bind:class="{ active: isSearchbar }" ref="searchBox">
       <div class="navbar-search-input">
         <input type="text" placeholder="Search..." v-model="search" />
         <button type="button" class="search-button">
@@ -106,11 +92,7 @@
         </button>
       </div>
       <div class="navbar-search-cancel">
-        <button
-          type="button"
-          class="cancel-button"
-          v-on:click="isSearchbar = false"
-        >
+        <button type="button" class="cancel-button" v-on:click="isSearchbar = false">
           <i class="lni lni-close"></i>
         </button>
       </div>
@@ -125,14 +107,10 @@
         <div class="navbar-item d-none d-lg-block">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <nuxt-link class="nav-link active" aria-current="page" to="/"
-                >Home</nuxt-link
-              >
+              <nuxt-link class="nav-link active" aria-current="page" to="/">Home</nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link class="nav-link" aria-current="page" to="/shop"
-                >Shop</nuxt-link
-              >
+              <nuxt-link class="nav-link" aria-current="page" to="/shop">Shop</nuxt-link>
             </li>
             <!-- <li class="nav-item dropdown">
               <a
@@ -157,8 +135,11 @@
               <nuxt-link class="nav-link" to="/about">About Us</nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link class="nav-link" to="/wishlist">Wishlist</nuxt-link>
+              <nuxt-link class="nav-link" to="/auction">Auction</nuxt-link>
             </li>
+            <!-- <li class="nav-item">
+              <nuxt-link class="nav-link" to="/wishlist">Wishlist</nuxt-link>
+            </li> -->
             <li class="nav-item">
               <nuxt-link class="nav-link" to="/feedback">Contact Us</nuxt-link>
             </li>
@@ -166,47 +147,33 @@
         </div>
         <div class="navbar-item">
           <ul class="navbar-item__action">
-            <li>
+            <!-- <li>
               <button v-on:click="showSearchbar()" ref="searchBoxSource">
                 <i class="lni lni-search-alt"> </i>
               </button>
-            </li>
+            </li> -->
             <li>
               <template v-if="authUser">
-                <nuxt-link
-                  class="nav-link"
-                  aria-current="page"
-                  to="/dashboard-profile"
-                  ><i class="lni lni-user"></i
-                ></nuxt-link>
+                <nuxt-link class="nav-link" aria-current="page" to="/dashboard-profile"><i
+                    class="lni lni-user"></i></nuxt-link>
               </template>
-              <template v-else-if="!authUser"
-                ><nuxt-link class="nav-link" aria-current="page" to="/signIn"
-                  ><i class="lni lni-user"></i></nuxt-link
-              ></template>
+              <template v-else-if="!authUser"><nuxt-link class="nav-link" aria-current="page" to="/signIn"><i
+                    class="lni lni-user"></i></nuxt-link></template>
             </li>
             <li>
               <button v-on:click="showCart()">
                 <i class="lni lni-cart"></i>
-                <span class="navbar-action__badge" v-if="cartItem !=undefined && cartItem.length>0">{{this.cartItem.length}}</span>
+                <span class="navbar-action__badge"
+                  v-if="cartItem != undefined && cartItem.length > 0">{{ this.cartItem.length }}</span>
                 <span class="navbar-action__badge" v-else>0</span>
               </button>
             </li>
             <li>
               <button v-on:click="showSidebar()">
-                <i class="d-lg-none"
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="25"
-                    height="25"
-                    fill="currentColor"
-                    class="bi bi-list"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
-                    />
+                <i class="d-lg-none"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                    class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
                   </svg>
                 </i>
               </button>
@@ -259,10 +226,10 @@ export default {
       this.getResults();
     },
   },
-  computed:{
+  computed: {
     ...mapGetters({
-            cartItem:'getCartItem',
-      })
+      cartItem: 'getCartItem',
+    })
   },
   methods: {
     showSidebar() {
@@ -375,10 +342,12 @@ export default {
   &-enter {
     overflow: hidden;
     max-height: 0;
+
     &-to {
       max-height: 500px;
       overflow: hidden;
     }
+
     &-active {
       -moz-transition-duration: 0.5s;
       -webkit-transition-duration: 0.5s;
@@ -390,11 +359,14 @@ export default {
       transition-timing-function: ease-in;
     }
   }
+
   &-leave {
     @extend .slide-enter-to;
+
     &-to {
       @extend .slide-enter;
     }
+
     &-active {
       -moz-transition-duration: 0.5s;
       -webkit-transition-duration: 0.5s;
