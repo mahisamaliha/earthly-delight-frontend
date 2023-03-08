@@ -5059,56 +5059,46 @@ h1, h2, h3, h4, h5, h6 {
   flex-direction: row;
   gap: 50px;
 }
-.auction-img .details {
-  display: flex;
-  flex-direction: column;
-}
-.auction-img .details p {
-  color: #000000;
-  font-weight: 500;
-  font-size: 18px;
-}
-.auction-img .details .info {
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
-  padding-top: 15px;
-}
-.auction-img .details .info .header ul li {
-  color: #000000;
-  font-weight: 500;
-}
-.auction-area {
-  display: flex;
-  flex-direction: row;
-  gap: 50px;
-}
-.auction-area .bidding-area {
-  padding: 30px;
+.auction-img .img {
   width: 50%;
+  display: flex;
+  gap: 10px;
 }
-.auction-area .bidding-area h4 {
+.auction-img .img .grid-list--picture---first {
+  border: 1px solid black;
+  box-shadow: inset 0px 0px 10px rgba(184, 180, 180, 0.55);
+  padding: 30px;
+  text-align: center;
+}
+.auction-img .img .grid-list--picture---first img {
+  max-width: 500px;
+  width: 100%;
+}
+.auction-img .bidding-area {
+  padding: 30px;
+}
+.auction-img .bidding-area h4 {
   margin-bottom: 15px;
 }
-.auction-area .bidding-area--number {
+.auction-img .bidding-area--number {
   font-size: 16px;
   font-weight: 400;
 }
-.auction-area .bidding-area--hours {
+.auction-img .bidding-area--hours {
   font-size: 16px;
   font-weight: 400;
 }
-.auction-area .bidding-area--highest {
+.auction-img .bidding-area--highest {
   margin-top: 10px;
   font-size: 18px;
   font-weight: 500;
 }
-.auction-area .bidding-area .bid {
+.auction-img .bidding-area .bid {
   display: flex;
   flex-direction: row;
   gap: 20px;
 }
-.auction-area .bidding-area .bid button {
+.auction-img .bidding-area .bid button {
   background-color: #008631;
   padding: 5px;
   width: 150px;
@@ -5116,7 +5106,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #ffffff;
   font-size: 18px;
 }
-.auction-area .bidding-area .bid .icon {
+.auction-img .bidding-area .bid .icon {
   display: flex;
   flex-direction: row;
   gap: 15px;
@@ -5129,7 +5119,13 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   font-size: 18px;
 }
-.auction-area .bidding-details {
+.auction-img .bidding-area .bid .icon p {
+  white-space: nowrap;
+}
+.auction-area {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
   width: 50%;
 }
 

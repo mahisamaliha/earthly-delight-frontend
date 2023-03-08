@@ -14,69 +14,53 @@
         flex-direction: row;
         gap: 50px;
 
-        .details {
+        .img {
+            width: 50%;
             display: flex;
-            flex-direction: column;
+            gap: 10px;
 
-            p {
-                color: #000000;
-                font-weight: 500;
-                font-size: 18px;
-            }
+            .grid-list--picture---first {
+                border: 1px solid black;
+                box-shadow: inset 0px 0px 10px rgb(184 180 180 / 55%);
 
-            .info {
-                display: flex;
-                flex-direction: row;
-                gap: 30px;
-                padding-top: 15px;
-
-                .header {
-                    ul {
-                        li {
-                            color: #000000;
-                            font-weight: 500;
-                        }
-                    }
+                padding: 30px;
+                text-align: center;
+                img {
+                    max-width: 500px;
+                    width: 100%;
                 }
             }
         }
-    }
-
-    &-area {
-        display: flex;
-        flex-direction: row;
-        gap: 50px;
 
         .bidding {
             &-area {
                 padding: 30px;
-                width: 50%;
-    
+
                 h4 {
                     margin-bottom: 15px;
                 }
-    
+
                 &--number {
                     font-size: 16px;
                     font-weight: 400;
                 }
-    
+
                 &--hours {
                     font-size: 16px;
                     font-weight: 400;
                 }
-    
+
                 &--highest {
                     margin-top: 10px;
                     font-size: 18px;
                     font-weight: 500;
                 }
-    
+
                 .bid {
                     display: flex;
                     flex-direction: row;
                     gap: 20px;
-    
+
                     button {
                         background-color: $secondaryColor;
                         padding: 5px;
@@ -85,7 +69,7 @@
                         color: #ffffff;
                         font-size: 18px;
                     }
-    
+
                     .icon {
                         display: flex;
                         flex-direction: row;
@@ -98,13 +82,81 @@
                         width: 150px;
                         justify-content: center;
                         font-size: 18px;
-    
+
+                        p {
+                            white-space: nowrap;
+                        }
                     }
                 }
             }
-            &-details {
-                width: 50%;
-            }
         }
+
+    }
+
+    &-area {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        width: 50%;
+
+        // .bidding {
+        //     &-area {
+        //         padding: 30px;
+        //         width: 50%;
+
+        //         h4 {
+        //             margin-bottom: 15px;
+        //         }
+
+        //         &--number {
+        //             font-size: 16px;
+        //             font-weight: 400;
+        //         }
+
+        //         &--hours {
+        //             font-size: 16px;
+        //             font-weight: 400;
+        //         }
+
+        //         &--highest {
+        //             margin-top: 10px;
+        //             font-size: 18px;
+        //             font-weight: 500;
+        //         }
+
+        //         .bid {
+        //             display: flex;
+        //             flex-direction: row;
+        //             gap: 20px;
+
+        //             button {
+        //                 background-color: $secondaryColor;
+        //                 padding: 5px;
+        //                 width: 150px;
+        //                 border-radius: 6px;
+        //                 color: #ffffff;
+        //                 font-size: 18px;
+        //             }
+
+        //             .icon {
+        //                 display: flex;
+        //                 flex-direction: row;
+        //                 gap: 15px;
+        //                 align-items: center;
+        //                 padding: 10px;
+        //                 background-color: $secondaryColor;
+        //                 border-radius: 5px;
+        //                 color: #ffffff;
+        //                 width: 150px;
+        //                 justify-content: center;
+        //                 font-size: 18px;
+
+        //             }
+        //         }
+        //     }
+        //     &-details {
+        //         width: 50%;
+        //     }
+        // }
     }
 }

@@ -59,7 +59,7 @@
             <nuxt-link class="nav-link" to="/auction">Auction</nuxt-link>
           </li>
           <li class="nav-item">
-            <nuxt-link class="nav-link" to="/contactUs">Contact Us</nuxt-link>
+            <nuxt-link class="nav-link" to="/feedback">Contact Us</nuxt-link>
           </li>
         </ul>
         <div class="navbar-mobile--info bg-gray">
