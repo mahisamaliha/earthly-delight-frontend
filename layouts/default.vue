@@ -25,36 +25,37 @@ export default {
     Navbar,
     BottomContainer,
   },
-  data(){
+  data() {
     return {
-      bottomContainer:true
-    }
+      bottomContainer: true,
+    };
   },
-  methods:{
-    isFooterShowChange(){
-
-    if(
-      this.$route.name == 'login' ||
-      this.$route.name == 'shop' ||
-      this.$route.name == 'product-id' ||
-      this.$route.name == 'registration' ||
-      this.$route.name == 'auth-account-activation' ||
-      this.$route.name == 'auth-code-varification' ||
-      this.$route.name == 'auth-forget-password' ||
-      this.$route.name == 'auth-reset-password'
-    ){
-      this.bottomContainer = false
-    } else this.bottomContainer = true
-    }
+  methods: {
+    isFooterShowChange() {
+      if (
+        this.$route.name == "login" ||
+        this.$route.name == "shop" ||
+        this.$route.name == "product-id" ||
+        this.$route.name == "registration" ||
+        this.$route.name == "auth-account-activation" ||
+        this.$route.name == "auth-code-varification" ||
+        this.$route.name == "auth-forget-password" ||
+        this.$route.name == "auth-reset-password" ||
+        this.$route.name == "admin-add-product"
+      ) {
+        this.bottomContainer = false;
+      } else this.bottomContainer = true;
+    },
   },
   watch: {
-      '$route.name': function(newVal, oldVal) { // watch it
-        this.isFooterShowChange()
-      }
+    "$route.name": function (newVal, oldVal) {
+      // watch it
+      this.isFooterShowChange();
+    },
   },
-  async mounted(){
+  async mounted() {
     // if(this.authUser) this.getCartItemsServer()
-        this.isFooterShowChange()
+    this.isFooterShowChange();
   },
 };
 </script>

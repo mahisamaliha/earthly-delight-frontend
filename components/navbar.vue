@@ -160,6 +160,11 @@
               <nuxt-link class="nav-link" to="/wishlist">Wishlist</nuxt-link>
             </li>
             <li class="nav-item">
+              <nuxt-link class="nav-link" to="/admin/add-product"
+                >Add Products</nuxt-link
+              >
+            </li>
+            <li class="nav-item">
               <nuxt-link class="nav-link" to="/feedback">Contact Us</nuxt-link>
             </li>
           </ul>
@@ -188,7 +193,11 @@
             <li>
               <button v-on:click="showCart()">
                 <i class="lni lni-cart"></i>
-                <span class="navbar-action__badge" v-if="cartItem !=undefined && cartItem.length>0">{{this.cartItem.length}}</span>
+                <span
+                  class="navbar-action__badge"
+                  v-if="cartItem != undefined && cartItem.length > 0"
+                  >{{ this.cartItem.length }}</span
+                >
                 <span class="navbar-action__badge" v-else>0</span>
               </button>
             </li>
@@ -219,7 +228,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 import {
   Hooper,
   Slide,
@@ -259,10 +268,10 @@ export default {
       this.getResults();
     },
   },
-  computed:{
+  computed: {
     ...mapGetters({
-            cartItem:'getCartItem',
-      })
+      cartItem: "getCartItem",
+    }),
   },
   methods: {
     showSidebar() {
@@ -285,7 +294,7 @@ export default {
       }
     },
     showCart() {
-      this.$router.push('/cart')
+      this.$router.push("/cart");
       // this.isCart = true;
     },
     hideCart() {
