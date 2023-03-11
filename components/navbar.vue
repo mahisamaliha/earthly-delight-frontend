@@ -61,11 +61,14 @@
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/about">About Us</nuxt-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <nuxt-link class="nav-link" to="/wishlist">Wishlist</nuxt-link>
+          </li> -->
+          <li class="nav-item">
+            <nuxt-link class="nav-link" to="/auction">Auction</nuxt-link>
           </li>
           <li class="nav-item">
-            <nuxt-link class="nav-link" to="/contactUs">Contact Us</nuxt-link>
+            <nuxt-link class="nav-link" to="/feedback">Contact Us</nuxt-link>
           </li>
         </ul>
         <div class="navbar-mobile--info bg-gray">
@@ -157,8 +160,11 @@
               <nuxt-link class="nav-link" to="/about">About Us</nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link class="nav-link" to="/wishlist">Wishlist</nuxt-link>
+              <nuxt-link class="nav-link" to="/auction">Auction</nuxt-link>
             </li>
+            <!-- <li class="nav-item">
+              <nuxt-link class="nav-link" to="/wishlist">Wishlist</nuxt-link>
+            </li> -->
             <li class="nav-item">
               <nuxt-link class="nav-link" to="/admin/add-product"
                 >Add Products</nuxt-link
@@ -171,11 +177,11 @@
         </div>
         <div class="navbar-item">
           <ul class="navbar-item__action">
-            <li>
+            <!-- <li>
               <button v-on:click="showSearchbar()" ref="searchBoxSource">
                 <i class="lni lni-search-alt"> </i>
               </button>
-            </li>
+            </li> -->
             <li>
               <template v-if="authUser">
                 <nuxt-link
@@ -384,10 +390,12 @@ export default {
   &-enter {
     overflow: hidden;
     max-height: 0;
+
     &-to {
       max-height: 500px;
       overflow: hidden;
     }
+
     &-active {
       -moz-transition-duration: 0.5s;
       -webkit-transition-duration: 0.5s;
@@ -399,11 +407,14 @@ export default {
       transition-timing-function: ease-in;
     }
   }
+
   &-leave {
     @extend .slide-enter-to;
+
     &-to {
       @extend .slide-enter;
     }
+
     &-active {
       -moz-transition-duration: 0.5s;
       -webkit-transition-duration: 0.5s;

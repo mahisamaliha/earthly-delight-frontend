@@ -906,8 +906,6 @@ export default {
   border: 1px solid #e2dcdc;
   margin-right: 20px;
 }
-.selected-filter-area button.active {
-}
 .selected-filter-area button i {
   font-size: 10px;
   margin-left: 5px;

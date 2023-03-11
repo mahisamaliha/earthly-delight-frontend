@@ -20,64 +20,93 @@
         </div>
 
         <div class="auction container pt-50 pb-50">
-            <div class="auction-section">
+            <div class="auction-section pb-30" v-for="auction in auctions" :key="auction.id">
                 <div class="auction-img">
+                    <!-- <img :src="auction.image" /> -->
+
                     <div class="img">
-                        <figure class="grid-list--picture---first">
-                            <img src="/assets/img/about1.png" alt="" />
-                        </figure>
+                        <h4>{{ auction.id }}.</h4>
+                        <div>
+                            <figure class="grid-list--picture---first">
+                                <!-- <img src="/assets/img/about1.png" alt="" /> -->
+                                <img :src="auction.image" />
+
+                            </figure>
+                        </div>
                     </div>
-                    <div class="details">
-                        <h5>Bonsai Dwarf Weeping Willow Tree - Large Thick Truck Cutting - Ready to Plant -
-                            Get a Rare Dwarf Bonsai Tree Very Fast
-                        </h5>
-                        <p class="pt-30">Product details :</p>
-                        <div class="info">
-                            <div class="header">
-                                <ul>
-                                    <li>Indoor/Outdoor Usage :</li>
-                                    <li>Brand :</li>
-                                    <li>Material Feature :</li>
-                                    <li>Sunlight Exposure :</li>
-                                </ul>
+                    <div class="auction-area">
+                        <div class="bidding-area bg-gray">
+                            <h4>{{ auction.price }}</h4>
+                            <h4 class="bidding-area--number">Current Bid ({{ auction.bidding_list }} bids)</h4>
+                            <h4 class="bidding-area--hours"><i class="lar la-clock"></i> {{ auction.current_timer }} hrs
+                                remaining</h4>
+                            <hr>
+                            <h4 class="bidding-area--highest">Highest Bidding Is : ৳ {{ auction.highest_bid }}</h4>
+                            <div class="bid">
+                                <button @click="callAuction">Bid</button>
+                                <div class="icon">
+                                    <button @click="decrement"><i class="las la-minus"></i></button>
+                                    <!-- <p>৳ {{ auction.current_bid }} {{value}}</p> -->
+                                    <p>৳ {{value}}</p>
+                                    <button @click="increment"><i class="las la-plus"></i></button>
+                                </div>
                             </div>
-                            <div class="sub-header">
-                                <ul>
-                                    <li>Indoor</li>
-                                    <li>CZ Grain</li>
-                                    <li>Natural</li>
-                                    <li>Full Sun, Partial Shade</li>
-                                </ul>
-                            </div>
+                        </div>
+                        <div class="bidding-details">
+                            <ul>
+                                <li>
+                                    <!-- BEAUTIFUL BONSAI TREE: Very Unique Bonsai Material, with leaves and branches that weep.
+                                Fast growing, a unique specimen indeed. -->
+                                    <p>{{ auction.description }}</p>
+
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="auction-area">
-                    <div class="bidding-area bg-gray">
-                        <h4>৳ 450</h4>
-                        <h4 class="bidding-area--number">Current Bid (12 bids)</h4>
-                        <h4 class="bidding-area--hours"><i class="lar la-clock"></i> 10 hrs remaining</h4>
-                        <hr>
-                        <h4 class="bidding-area--highest">Highest Bidding Is : ৳ 650</h4>
-                        <div class="bid">
-                            <button>Bid</button>
-                            <div class="icon">
-                                <i class="las la-plus"></i>
-                                <p>৳ 650</p>
-                                <i class="las la-minus"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bidding-details">
-                        <ul>
-                            <li>
-                                BEAUTIFUL BONSAI TREE: Very Unique Bonsai Material, with leaves and branches that weep.
-                                Fast growing, a unique specimen indeed.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+
             </div>
         </div>
+
+        <!-- <div v-for="auction in auctions" :key="auction.id">
+            <img :src="auction.image" />
+            <p>{{ auction.description }}</p>
+        </div> -->
     </div>
 </template>
+<script>
+export default {
+    data() {
+        return {
+            message: null,
+            auctions: [],
+            value : 601,
+        };
+    },
+    methods: {
+        async callAuction() {
+            const res = await this.callApi("get", "/app/auction");
+            if (res.status == 200) {
+                this.auctions = res.data.data;
+
+                // this.message = res.data;
+                console.log(this.message);
+            } else {
+                this.message = "Error calling API";
+            }
+        },
+        increment() {
+            this.value++
+        },
+        decrement() {
+            if (this.value > 601) {
+                this.value--
+            }
+        }
+    },
+    created() {
+        this.callAuction();
+    },
+
+};
+</script>

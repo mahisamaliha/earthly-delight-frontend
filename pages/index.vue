@@ -5,16 +5,27 @@
       <div class="header-info">
         <div class="container">
           <div class="header-info-content">
-            <div class="header-info-content-item d-none d-lg-block" v-for="(data, index) in dataBanner.data"
-              :key="index" v-if="data.type == 'topPromotionalBanner'">
+            <div class="header-info-content-item d-none d-lg-block" v-for="(data, index) in dataBanner.data" :key="index"
+              v-if="data.type == 'topPromotionalBanner'">
               {{ data.title }}
             </div>
           </div>
         </div>
       </div>
       <hooper class="no-margin" :wheelControl="false">
+        <slide class="item hero-section__bg" style="background-image:url(assets/img/Frame.png) ; background-size: cover;">
+          <div class="container">
+            <div class="hero-section__content">
+              <h4>One Touch Of The Nature</h4>
+              <h1>Welcome To Earthly Delight</h1>
+              <button class="main-btn main-btn__border">
+                Discover Now
+              </button>
+            </div>
+          </div>
+        </slide>
         <slide class="item hero-section__bg"
-          style="background-image:url(assets/img/Frame.png) ; background-size: cover;">
+          style="background-image:url(assets/img/Frame2.png) ; background-size: cover;">
           <div class="container">
             <div class="hero-section__content">
               <h4>One Touch Of The Nature</h4>
@@ -31,7 +42,7 @@
 
     <!--**********Latest Hot Deals*********-->
 
-    
+
 
     <!--**********Featured Category Section***********-->
 
@@ -53,7 +64,7 @@
               </div>
               <div class="product-card__content">
                 <h3 class="product-card__content--title">Flower</h3>
-                </div>
+              </div>
             </div>
           </div>
           <div class="featured-category__grid--item pb-30">
@@ -65,7 +76,7 @@
               </div>
               <div class="product-card__content">
                 <h3 class="product-card__content--title">Fruit</h3>
-                </div>
+              </div>
             </div>
           </div>
           <div class="featured-category__grid--item pb-30">
@@ -77,7 +88,7 @@
               </div>
               <div class="product-card__content">
                 <h3 class="product-card__content--title">Bonsai</h3>
-                </div>
+              </div>
             </div>
           </div>
           <div class="featured-category__grid--item pb-30">
@@ -89,7 +100,7 @@
               </div>
               <div class="product-card__content">
                 <h3 class="product-card__content--title">Maple</h3>
-                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -138,9 +149,9 @@
                     <h3 class="product-card__content--title">
                       {{ data.groupeName }}
                     </h3>
-                    <h4 class="product-card__content--subtitle">
+                    <!-- <h4 class="product-card__content--subtitle">
                       {{ data.productName }} {{ data.model }}
-                    </h4>
+                    </h4> -->
                     <p class="product-card__content--price" v-if="data.discount">
                       ৳
                       {{
@@ -302,35 +313,49 @@
           </div> -->
         </div>
         <div class="row">
-          <div class="col-lg-4 col-md-6 col-sm-6 pb-30">
-            <img class="article--section__img" src="assets/img/article1.png" alt="">
-            <p class="article--section__date">MAY 20, 2020</p>
-            <h4 class="article--section__head">The Importance Importance of Trees..........</h4>
-            <p class="article--section__para">Sed ut perspiciatis unde omnis iste natus error sit volupta
-              accusantium doloremque laudantium, totam rem aperia,
-              eaque natus error sit voluptatem
-            </p>
-            <a href="#" class="article--section__button">Read More</a>
+          <div class="col-lg-4 col-md-6 col-sm-6 pb-30 ">
+            <nuxt-link to="/article">
+              <div class="article--section-main">
+                <img class="article--section__img" src="assets/img/article1.png" alt="">
+                <p class="article--section__date">MAY 20, 2020</p>
+                <h4 class="article--section__head">The Importance Importance of Trees..........</h4>
+                <p class="article--section__para">Sed ut perspiciatis unde omnis iste natus error sit volupta
+                  accusantium doloremque laudantium, totam rem aperia,
+                  eaque natus error sit voluptatem
+                </p>
+                <a href="#" class="article--section__button">Read More</a>
+              </div>
+            </nuxt-link>
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-6 pb-30">
-            <img class="article--section__img" src="assets/img/article2.png" alt="">
-            <p class="article--section__date">June 28, 2020</p>
-            <h4 class="article--section__head">The Importance Importance of Trees..........</h4>
-            <p class="article--section__para">Sed ut perspiciatis unde omnis iste natus error sit volupta
-              accusantium doloremque laudantium, totam rem aperia,
-              eaque natus error sit voluptatem
-            </p>
-            <a href="#" class="article--section__button">Read More</a>
+          <div class="col-lg-4 col-md-6 col-sm-6 pb-30 ">
+
+            <nuxt-link to="/article">
+              <div class="article--section-main">
+                <img class="article--section__img" src="assets/img/article2.png" alt="">
+                <p class="article--section__date">June 28, 2020</p>
+                <h4 class="article--section__head">The Importance Importance of Trees..........</h4>
+                <p class="article--section__para">Sed ut perspiciatis unde omnis iste natus error sit volupta
+                  accusantium doloremque laudantium, totam rem aperia,
+                  eaque natus error sit voluptatem
+                </p>
+                <a href="#" class="article--section__button">Read More</a>
+              </div>
+            </nuxt-link>
           </div>
-          <div class="col-lg-4 col-md-6 col-sm-6 pb-30">
-            <img class="article--section__img" src="assets/img/article3.png" alt="">
-            <p class="article--section__date">September 03, 2021</p>
-            <h4 class="article--section__head">The Importance Importance of Trees..........</h4>
-            <p class="article--section__para">Sed ut perspiciatis unde omnis iste natus error sit volupta
-              accusantium doloremque laudantium, totam rem aperia,
-              eaque natus error sit voluptatem
-            </p>
-            <a href="#" class="article--section__button">Read More</a>
+          <div class="col-lg-4 col-md-6 col-sm-6 pb-30 ">
+
+            <nuxt-link to="/article">
+              <div class="article--section-main">
+                <img class="article--section__img" src="assets/img/article3.png" alt="">
+                <p class="article--section__date">September 03, 2021</p>
+                <h4 class="article--section__head">The Importance Importance of Trees..........</h4>
+                <p class="article--section__para">Sed ut perspiciatis unde omnis iste natus error sit volupta
+                  accusantium doloremque laudantium, totam rem aperia,
+                  eaque natus error sit voluptatem
+                </p>
+                <a href="#" class="article--section__button">Read More</a>
+              </div>
+            </nuxt-link>
           </div>
         </div>
       </div>

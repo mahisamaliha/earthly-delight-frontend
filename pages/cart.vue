@@ -93,6 +93,7 @@
           <button v-if="!isCoupon" @click="checkCoupon">Apply Coupon</button>
           <button v-else @click="clearCoupon">Clear</button>
         </div> -->
+        
         <div class="cart-section--bill">
           <h4>Cart Totals</h4>
           <div class="subtotal">
@@ -111,6 +112,7 @@
             <button @click="gotToCheck()">Proceed to checkout</button>
           </div>
         </div>
+        
       </div>
     </section>
   </div>
