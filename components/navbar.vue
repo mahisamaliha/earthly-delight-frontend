@@ -59,6 +59,9 @@
             <nuxt-link class="nav-link" to="/auction">Auction</nuxt-link>
           </li>
           <li class="nav-item">
+            <nuxt-link class="nav-link" to="/accesorie">Accesories</nuxt-link>
+          </li>
+          <li class="nav-item">
             <nuxt-link class="nav-link" to="/feedback">Contact Us</nuxt-link>
           </li>
         </ul>
@@ -137,6 +140,9 @@
             <li class="nav-item">
               <nuxt-link class="nav-link" to="/auction">Auction</nuxt-link>
             </li>
+            <li class="nav-item">
+              <nuxt-link class="nav-link" to="/accesorie">Accesories</nuxt-link>
+            </li>
             <!-- <li class="nav-item">
               <nuxt-link class="nav-link" to="/wishlist">Wishlist</nuxt-link>
             </li> -->
@@ -163,8 +169,8 @@
             <li>
               <button v-on:click="showCart()">
                 <i class="lni lni-cart"></i>
-                <span class="navbar-action__badge"
-                  v-if="cartItem != undefined && cartItem.length > 0">{{ this.cartItem.length }}</span>
+                <span class="navbar-action__badge" v-if="cartItem != undefined && cartItem.length > 0">{{
+                  this.cartItem.length }}</span>
                 <span class="navbar-action__badge" v-else>0</span>
               </button>
             </li>

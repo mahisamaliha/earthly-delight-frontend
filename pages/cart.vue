@@ -93,7 +93,6 @@
           <button v-if="!isCoupon" @click="checkCoupon">Apply Coupon</button>
           <button v-else @click="clearCoupon">Clear</button>
         </div> -->
-        
         <div class="cart-section--bill">
           <h4>Cart Totals</h4>
           <div class="subtotal">
@@ -112,7 +111,6 @@
             <button @click="gotToCheck()">Proceed to checkout</button>
           </div>
         </div>
-        
       </div>
     </section>
   </div>
@@ -416,6 +414,10 @@ export default {
   mounted() {
     let order = this.order;
     if (this.authUser) {
+      if(this.authUser.customer){
+        order.billingAddress = this.authUser.customer.address
+        order.postCode = this.authUser.customer.postCode
+      }
       if (this.authUser.customer && this.authUser.customer.barcode) {
         // console.log("Yes MembershipFouond")
         order.discount = 10
