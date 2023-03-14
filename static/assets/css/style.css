@@ -132,6 +132,13 @@ button:active, button:focus {
   outline: 0;
 }
 
+.loader-lg {
+  text-align: center;
+  margin: 20px 0px;
+  font-size: 70px;
+  color: #0c0c0c;
+}
+
 .main-btn {
   padding: 0.9375em 1.875em;
   border-radius: 8px;

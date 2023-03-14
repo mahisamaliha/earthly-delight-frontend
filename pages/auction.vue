@@ -43,7 +43,7 @@
                             <hr>
                             <h4 class="bidding-area--highest">Highest Bidding Is : ৳ {{ auction.highest_bid }}</h4>
                             <div class="bid">
-                                <button @click="callAuction">Bid</button>
+                                <button @click="placeBid(auction.id)">Bid</button>
                                 <div class="icon">
                                     <button @click="decrement"><i class="las la-minus"></i></button>
                                     <!-- <p>৳ {{ auction.current_bid }} {{value}}</p> -->
@@ -80,7 +80,8 @@ export default {
         return {
             message: null,
             auctions: [],
-            value : 601,
+            user: [],
+            value : 615,
         };
     },
     methods: {
@@ -94,6 +95,40 @@ export default {
             } else {
                 this.message = "Error calling API";
             }
+
+            
+        },
+        async placeBid(auctionId) {
+            const res2 = await this.callApi("get", "/app/get-user-id");
+            if (res2.status == 200) {                
+                const data = {
+                    user_id: res2.data['user_id'],
+                    auction_id: auctionId,
+                    bidding_price: this.value
+                };
+                
+                try {
+                    const response = await this.callApi('post', '/app/auction-tracking', data);
+                    if (response.status == 200) {                        
+                        console.log("Successfully Added");
+                    } else {
+                        const response = await this.callApi('put', `/app/auction-tracking/${res2.data['user_id']}/${auctionId}`, data);
+                        if (response.status == 200) {                        
+                            console.log("Successfully Updated",this.value);
+                        } else {
+                            console.log("Error to create or update bid info!");
+                        }
+                    }
+                    
+
+                } catch (error) {
+                    console.error(error,data);
+                }
+            } else {
+                this.message = "Error calling API";
+            }
+            
+            
         },
         increment() {
             this.value++
