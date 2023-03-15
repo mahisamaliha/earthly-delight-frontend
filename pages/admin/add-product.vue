@@ -138,7 +138,7 @@
               </div>
             </div>
             <FormItem
-              label="Staring Price"
+              label="Starting Price"
               :error="errorMessages.sellingPrice"
               :required="true"
             >

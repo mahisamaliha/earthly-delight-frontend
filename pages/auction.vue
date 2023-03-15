@@ -81,7 +81,7 @@ export default {
             message: null,
             auctions: [],
             user: [],
-            value : 615,
+            value : 631,
         };
     },
     methods: {

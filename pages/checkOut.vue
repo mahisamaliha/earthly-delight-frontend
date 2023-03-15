@@ -77,7 +77,7 @@
               </div>
             </div> -->
             <div class="input-group">
-              <label>Address *</label>
+              <label>Contact *</label>
               <div class="custom-input__group">
                 <input
                   class="custom-input__field"
@@ -522,25 +522,33 @@ export default {
     },
     removeAllorder() {
       let order = {
-        billingZone: "",
-        shippingPrice: 0,
-        coupon: "",
-        discountType: "",
-        discount: 0,
-        postCode: "",
-        referralCode: "",
-        giftVoucherCode: "",
-        giftVoucherAmount: 0,
-        isDGMoney: 0,
-        dgAmount: 0,
-        roundAmount: 0,
+        billingCity:'',
+      shippingPrice:0,
+      coupon:'',
+      discountType:'',
+      discount:0,
+      postCode:'',
+      referralCode:'',
+      giftVoucherCode:'',
+      giftVoucherAmount:0,
+      isDGMoney:0,
+      dgAmount:0,
+      roundAmount:0,
+      refferalDiscount:0,
+      membershipDiscount:0,
+      promoDiscount:0,
+      refferalDiscountAmount:0,
+      membershipDiscountAmount:0,
+      promoDiscountAmount:0,
 
-        subTotal: 0,
-        grandTotal: 0,
-        billingAddress: "",
-        paymentType: "",
-        name: "",
-        contact: "",
+      totalSellingPrice:0,
+      subTotal:0,
+      invoiceTotal:0,
+      grandTotal:0,
+      billingAddress:'',
+      paymentType:'',
+      name:'',
+      contact:'',
       };
       this.$store.commit("order", order);
     },
@@ -887,11 +895,11 @@ export default {
       if (!order.email) order.email = this.authUser.email;
       if (!order.contact) order.contact = this.authUser.contact;
       if (!order.billingAddress)
-        order.billingAddress = this.authUser.customer.address
+        order.billingAddress = this.authUser.customer
           ? this.authUser.customer.address
           : "";
       if (!order.postCode)
-        order.postCode = this.authUser.customer.postCode
+        order.postCode = this.authUser.customer
           ? this.authUser.customer.postCode
           : "";
       this.$store.commit("order", order);

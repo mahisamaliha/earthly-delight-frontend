@@ -28,7 +28,7 @@
             </figure>
           </div>
         </div>
-        <!-- <hooper
+        <hooper
           :vertical="true"
           style="height: 400px"
           v-if="(allImages.length>0)"
@@ -42,7 +42,7 @@
             </figure>
           </slide>
           <hooper-navigation v-if="(allImages.length>3)? true : false" slot="hooper-addons"></hooper-navigation>
-        </hooper> -->
+        </hooper>
 
       </div>
       <div class="product-details">
@@ -72,17 +72,17 @@
             }}<span>{{ productDetails.sellingPrice }}</span>
           </h4>
         </div>
-        <!-- <div class="product-varient d-flex">
-                <template v-if="allVariation.length > 0">
+        <div class="product-varient d-flex" style="margin-bottom:10px;">
+                <template v-if="allVariation && allVariation.length > 0">
 
                     <div class="pro-color" v-for="(item,index) in allVariation" :key="index">
-                        <select v-model="productVariation[item.name]" @change="getVariableProduct">
+                        <select v-model="productVariation[item.name]" @change="getVariableProduct(index)">
                             <option value=""  disabled selected>{{item.name}}</option>
                             <option v-for="(val,i) in item.values" :key="i" :value="val.value" >{{val.value}}</option>
                         </select>
                     </div>
                 </template>
-            </div> -->
+            </div>
         <div class="product-details--text">
         <p>
           </p>
@@ -106,9 +106,9 @@
             <button @click="addCart"><i class="las la-plus"></i>Add To Cart</button>
           </div>
         </div>
-        <!-- <h4 class="product-details--category">
+        <h4 class="product-details--category">
           Category: <span>{{ productDetails.catName }}</span>
-        </h4> -->
+        </h4>
         <div class="product-details--wishlist">
           <i @click="addWishList(productDetails)" v-if="isWishlist" class="lar la-heart wishList active"></i>
           <i @click="addWishList(productDetails)" v-if="!isWishlist" class="lar la-heart wishList"></i>
@@ -129,7 +129,7 @@
 
     <!--************Description****************-->
 
-    <section class="tab-section pt-50 pb-50">
+    <section class="tab-section pt-50">
       <div class="section-header__action container">
         <ul class="section-header__action--tab">
           <li
@@ -149,7 +149,7 @@
       </div>
       <div class="description-tab" v-if="isProductInfoIndex === 1">
         <div
-          class="description-tab--details container pt-30"
+          class="description-tab--details container"
           v-html="productDetails.brief_description"
         ></div>
       </div>
@@ -180,7 +180,7 @@
         class="review-tab container pb-50 pt-50"
         v-if="isProductInfoIndex === 3"
       >
-        <div v-if="(allReviews.length > 0)" class="review-tab--list">
+        <div v-if="(allReviews && allReviews.length > 0)" class="review-tab--list">
          <!-- {{data.user}} -->
           <div class="review-tab--customer pb-30"  v-for="(data,index) in allReviews" :key="index">
             <div class="customer-picture">
@@ -423,17 +423,16 @@ export default {
         centerMode: false,
         wheelControl: false,
       },
-      productVariation:{},
+      variableProduct:{},
       allReviews:[],
       allVariation:[],
+      variableProduct:[],
+      variationproduct:[],
       reviewForm:{
         productId:-1,
         rating:0,
         content:'',
         userId:0
-      },
-      productVariation :{
-
       },
       variableProduct:{id:0},
       isLoading: true,
@@ -478,11 +477,14 @@ export default {
     changeQuantityNumber(type, q) {
       if (q + this.quantity < 1) return;
       this.quantity += q;
-      if(this.product.stock < this.quantity){
+      if(this.variationproduct.stock < this.quantity){
         this.i("Stock Limited Execeed!")
       }
     },
-    async getVariableProduct(){
+    async getVariableProduct(indexNumber = -1){
+      console.log(indexNumber);
+      await this.isFieldEnabled(indexNumber);
+      await this.checkUsedVariation();
       let variation = {}
       // console.log(this.productVariation);
       for(let d of this.allVariation){
@@ -492,19 +494,137 @@ export default {
             }
             variation[d.name] = this.productVariation[d.name];
       }
-      let ob = {
-        id : this.productDetails.id,
-        variation: variation
-      }
-      const response = await this.callApi("post",`/app/getVariableProduct`,ob);
-      if(response.status == 200){
-        this.product = response.data
-        if(response.data.product_images.length > 0){
-          this.allImages = response.data.product_images
-          this.mainImages = response.data.product_images[0]
+      this.isLoading = true;
+      // let finalProduct = {}
+      variation = JSON.stringify(variation)
+      // for(let i =0; i<this.variationproduct.length; i++){
+      //   this.variationproduct[i].variation = JSON.stringify(this.variationproduct[i].variation)
+      //   if(variation == this.variationproduct[i].variation){
+      //     finalProduct = this.variationproduct[i];
+      //     break;
+      //   }
+      // }
+      console.log(finalProduct);
+      let finalProduct = this.variationproduct[0];
+      if(finalProduct){
+        this.variableProduct = finalProduct
+        this.isImageLoading = true;
+        if(finalProduct.product_images){
+          this.allImages = finalProduct.product_images
+
         }
-      }else this.swr()
+        else {
+          this.allImages = this.productDetails.product_images
+        }
+        this.sliderSetup();
+
+      }
+      else {
+        this.w("Product not found!")
+      }
+      this.isLoading=false
+      // let ob = {
+      //   id : this.productDetails.id,
+      //   variation: variation
+      // }
+      // const response = await this.callApi("post",`/app/getVariableProduct`,ob);
+      // if(response.status == 200){
+      //   this.product = response.data
+      //   if(response.data.product_images && response.data.product_images.length > 0){
+      //     this.allImages = response.data.product_images
+      //     this.mainImages = response.data.product_images[0]
+      //   }
+      // }else this.swr()
     },
+    checkUsedVariation(){
+        if(this.variationproduct.length == 0) return
+
+            let keys = Object.keys(this.productVariation);
+            let totalFillupVariation = 0;
+
+            for(let i of keys){
+              if(this.productVariation[i] != ''){
+                totalFillupVariation++;
+              }
+            }
+            console.log("totalFillupVariation ",totalFillupVariation)
+            if(totalFillupVariation != this.allVariation.length){
+              console.log("reseting Data")
+              for(let d of this.allVariation){
+                  for(let value of d.values){
+                      value.isDisabled = false
+                  }
+              }
+            }
+
+
+            for(let i in this.allVariation){
+              let d = this.allVariation[i];
+                if((i == totalFillupVariation) && totalFillupVariation == (this.allVariation.length -1)){
+                console.log("start refining ",d.name)
+
+                  for(let value of d.values){
+                    let isFound = false;
+                    let ob={};
+                    for(let i of keys){
+                      if(this.productVariation[i] == ''){
+                        ob[i] = value.value
+                      }
+                      else ob[i]=this.productVariation[i]
+                    }
+                    ob = JSON.stringify(ob)
+
+                    for(let vp of this.variationproduct ){
+                      if(vp.variation == ob ) isFound = true;
+                    }
+
+                    if(isFound == false) value.isDisabled = true
+
+                  }
+
+                }
+
+            }
+      },
+    sliderSetup(){
+
+      if(this.allImages){
+        this.sliderImages = [];
+        let i = 0;
+        for(let d of this.allImages){
+          if(i == 0)  this.mainImage = d.url;
+          i = 2;
+          this.sliderImages.push(d)
+        }
+      }
+      else {
+        this.mainImage = this.variationproduct.product_images[0].url;
+        this.sliderImages = this.variationproduct.product_images;
+      }
+      this.isInfiniteScroll = false
+      if(this.sliderImages.length > 3) this.isInfiniteScroll = true
+      this.isImageLoading = false
+    },
+    isFieldEnabled(indexNumber){
+
+      for(let i in this.allVariation){
+        if(indexNumber < i){
+          this.productVariation[this.allVariation[i].name] = '';
+          this.allVariation[i].isDisabled = true;
+
+        }
+
+        if((indexNumber+1) == i){
+          this.allVariation[i].isDisabled = false;
+        }
+
+
+      }
+
+
+
+    },
+
     async addCart(){
       // if(!this.authUser){
       //       this.i('Please Login first!')
@@ -516,21 +636,24 @@ export default {
               return this.variableProduct = {id:0}
             }
       }
-      if(this.product.stock < this.quantity){
+      if(this.variationproduct.stock < this.quantity){
         this.i("Stock Limited Execeed!")
         return;
       }
       // console.log(this.product);
+      // if(!this.variableProduct.id){
+      //   this.w("Product not found!")
+      //   return;
+      // }
       let ob={
         userId : this.authUser.id,
-        productId : this.product.id,
+        productId : this.variableProduct.id,
         mproductId : this.productDetails.id,
-        categoryId : this.product.groupId,
-        subcategoryId : this.product.categoryId,
-        menuId : this.product.menuId,
+        categoryId : this.variableProduct.groupId,
+        subcategoryId : this.variableProduct.categoryId,
+        menuId : this.variableProduct.menuId,
         quantity: this.quantity
       }
-      // console.log(this.product.menuId);
       this.addToCartServer(ob,this.quantity);
       return;
       const response = await this.callApi("post", '/app/add_cart', ob);
@@ -589,35 +712,73 @@ export default {
       }else this.swr();
     }
   },
+  async asyncData({app,redirect,params,store}){
+        try {
+          let response = await app.$axios.get(`/app/product_details/${params.slug}`)
+            // let response = await app.$axios.get(
+            //   `/app/product_details/${params.slug}`
+            // );
+            console.log('hello');
+            if (response.status == 200) {
+              // let productVariation = {};
+                let productVariation = {};
+                for(let d of response.data.data[0].product_variation){
+                    productVariation[d.name] = ''
+                }
+                return {
+                    productDetails : response.data.data[0],
+                    mainImages :response.data.data[0].product_images[0],
+                    allImages :response.data.data[0].product_images,
+                    allVariation :response.data.data[0].product_variation,
+                    variationproduct :  response.data.variationproducts,
+                      // console.log(this.productDetails),
+                    customerRating :response.data.data[0].average_rating?response.data.data[0].average_rating.rating : 0,
+                    allReviews :response.data.data[0].review,
+                    trending : response.data.relatedProduct,
+                    // product:res.data.product,
+                    // allVariation: res.data.allVariation,
+                    // allVariationProduct: res.data.allVariationProduct,
+                    productVariation: productVariation,
+                }
+            }
 
+        } catch (error) {
+            redirect(`/`)
+        }
+
+    },
   async created() {
     console.log(this.authUser.id);
     console.log("product page");
     console.log(this.$route.params.slug);
-    const response = await this.callApi(
-      "get",
-      `/app/product_details/${this.$route.params.slug}?userId=${this.authUser.id}`
-    );
-    if (response.status == 200) {
-      // let productVariation = {};
-      this.productDetails = response.data.data[0];
-      this.mainImages = this.productDetails.product_images[0];
-      this.allImages = this.productDetails.product_images;
-      this.allVariation = this.productDetails.product_variation
-      // console.log(this.productDetails);
-      this.customerRating = this.productDetails.average_rating? this.productDetails.average_rating.rating : 0
-      this.allReviews =this.productDetails.review
-      this.trending = response.data.relatedProduct;
-      if(this.productDetails.wishlist == null){
-        this.isWishlist = false
-      }else{
-        this.isWishlist=true
-      }
-      for(let d of this.allVariation){
-         this.productVariation[d.name] = ''
-      }
-    }
+    // const response = await this.callApi(
+    //   "get",
+    //   `/app/product_details/${this.$route.params.slug}?userId=${this.authUser.id}`
+    // );
+    // if (response.status == 200) {
+    //   // let productVariation = {};
+    //   this.productDetails = response.data.data[0];
+    //   this.mainImages = this.productDetails.product_images[0];
+    //   this.allImages = this.productDetails.product_images;
+    //   this.allVariation = this.productDetails.product_variation
+    //   this.variationproduct =  response.data.variationproducts
+    //   // console.log(this.productDetails);
+    //   this.customerRating = this.productDetails.average_rating? this.productDetails.average_rating.rating : 0
+    //   this.allReviews =this.productDetails.review
+    //   this.trending = response.data.relatedProduct;
+    //   if(this.productDetails.wishlist == null){
+    //     this.isWishlist = false
+    //   }else{
+    //     this.isWishlist=true
+    //   }
+    //   for(let d of this.allVariation){
+    //      this.productVariation[d.name] = ''
+    //   }
+
+    // }
     // else this.swr();
+    this.sliderSetup();
+    this.getVariableProduct();
     this.isLoading = false;
   },
   mounted() {
