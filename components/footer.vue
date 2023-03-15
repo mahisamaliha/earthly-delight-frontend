@@ -47,19 +47,19 @@
                 </div>
                 <ul class="footer-info__item--icon">
                   <li>
-                    <a><i class="lni lni-facebook-filled"></i></a>
+                    <a href="https://www.facebook.com/"><i class="lni lni-facebook-filled"></i></a>
                   </li>
                   <li>
-                    <a><i class="lni lni-twitter-original"></i></a>
+                    <a href="https://www.twitter.com/"><i class="lni lni-twitter-original"></i></a>
                   </li>
                   <li>
-                    <a><i class="lni lni-instagram-filled"></i></a>
+                    <a href="https://www.instagram.com/"><i class="lni lni-instagram-filled"></i></a>
                   </li>
                   <li>
-                    <a><i class="lni lni-youtube"></i></a>
+                    <a href="https://www.youtube.com/"><i class="lni lni-youtube"></i></a>
                   </li>
                   <li>
-                    <a><i class="lni lni-pinterest"></i></a>
+                    <a href="https://www.google.com/"><i class="lni lni-pinterest"></i></a>
                   </li>
                 </ul>
               </div>

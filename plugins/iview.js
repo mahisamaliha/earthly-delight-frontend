@@ -41,7 +41,6 @@ Vue.mixin({
             cartItem:'getCartItem',
             order: 'order',
             callCartOb:'getCallCartOb',
-            callWishListOb:'getCallWishListOb',
         })
     },
     methods: {

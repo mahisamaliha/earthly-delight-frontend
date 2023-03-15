@@ -6,7 +6,6 @@ import cookie from 'cookie'
 export const state = () => ({
     user : 'no user',
     authUser: false,
-    callWishListOb:null,
     callCartOb:null,
     cart: [],
     order:{
@@ -69,10 +68,6 @@ export const getters = {
   getGlobalProductLoading (state) {
     return state.globalProductLoading
   },
-
-  getCallWishListOb (state) {
-    return state.callWishListOb
-  },
   order (state) {
     return state.order;
   },
@@ -115,9 +110,6 @@ export const mutations = {
   pushAllGlobalProducts (state, data) {
     state.allGlobalProducts.push(data)
   },
-  setCallWishListOb (state, data) {
-    state.callWishListOb = data
-  },
   order (state, data) {
     state.order = data
   },
@@ -127,7 +119,6 @@ export const actions = {
     async nuxtServerInit({ commit, state }, { $axios, req, env })  {
     console.log('I am running as nuxt server init')
     const session = req.headers.cookie ? cookie.parse(req.headers.cookie) : ''
-    // console.log("token : ",session)
     $axios.setToken(session.token, 'Bearer');
     try {
       const res  = await $axios.get('/app/auth_user')
@@ -135,7 +126,6 @@ export const actions = {
       commit('setAuthInfo', res.data)
       const cart = await $axios.get(`/app/get_cart`)
       if(cart.status == 200){
-        // console.log(cart.data);
         state.order.invoiceTotal = cart.data.total
         commit('updateCart', cart.data.data)
       }

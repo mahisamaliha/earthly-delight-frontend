@@ -567,9 +567,12 @@
 
   &--right {
     margin-left: auto;
+    max-width: 275px;
+    width: 100%;
 
     .trending__img {
       object-fit: contain;
+      height: 200px;
     }
   }
 

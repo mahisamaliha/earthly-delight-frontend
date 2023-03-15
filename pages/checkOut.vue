@@ -1,10 +1,5 @@
 <template>
   <div>
-    <div class="billing-cupon container pt-50">
-      <button>Returning customer? Click here to login</button>
-      <button>Have A Cupon ? Click Here To Enter Your Code</button>
-    </div>
-
     <section class="billing-section container pb-50">
       <div class="billing-information pt-50">
         <div class="billing-details">
@@ -32,50 +27,6 @@
                 />
               </div>
             </div>
-            <!-- <div class="billing-details--email">
-              <div class="billing-details--email---item">
-                <div class="input-group">
-                  <label>Email *</label>
-                  <div class="custom-input__group">
-                    <input class="custom-input__field" type="email" placeholder="Email"/>
-                  </div>
-                </div>
-              </div>
-              <div class="billing-details--email---item">
-                <div class="input-group">
-                  <label>Phone *</label>
-                  <div class="custom-input__group">
-                    <input class="custom-input__field" type="number" placeholder="Phone"/>
-                  </div>
-                </div>
-              </div>
-            </div> -->
-            <!-- <div class="billing-details--select">
-              <div class="billing-details--select---item">
-                <div class="input-group">
-                  <label>Select Your City*</label>
-                  <div class="custom-input__group">
-                    <input class="custom-input__field" type="text" placeholder="City"/>
-                  </div>
-                </div>
-              </div>
-              <div class="billing-details--select---item">
-                <div class="input-group">
-                  <label>Select Your Zone*</label>
-                  <div class="custom-input__group">
-                    <input class="custom-input__field" type="text" placeholder="Zone"/>
-                  </div>
-                </div>
-              </div>
-              <div class="billing-details--select---item">
-                <div class="input-group">
-                  <label>Select Your Area*</label>
-                  <div class="custom-input__group">
-                    <input class="custom-input__field" type="text" placeholder="Area"/>
-                  </div>
-                </div>
-              </div>
-            </div> -->
             <div class="input-group">
               <label>Contact *</label>
               <div class="custom-input__group">
@@ -200,13 +151,6 @@
               </p>
             </div>
           </div>
-          <div class="order-select">
-            <form>
-              <textarea
-                placeholder="Notes about your order, e.g. special notes for delivery."
-              ></textarea>
-            </form>
-          </div>
           <div class="order-total">
             <div class="order-list--item order-list--body">
               <h4 class="order-list--item---title">Sub Total</h4>
@@ -245,7 +189,6 @@
           <h4 class="title">Payment</h4>
           <div class="payment-item">
             <div class="custom-input__checkbox">
-              <!-- <input type="checkbox" id="payment1" value="Cash on delivery" v-model="order.paymentType"/> -->
               <input  type="radio" id="payment1" name="radio-group" value="Cash on delivery" v-model="order.paymentType">
               <label for="payment1"></label>
             </div>
@@ -255,33 +198,6 @@
               </figure>
             </div>
           </div>
-          <!-- <div class="payment-item">
-            <div class="custom-input__checkbox">
-              <input type="checkbox" id="payment2" />
-              <label for="payment2"></label>
-            </div>
-            <div class="payment-item--picture">
-              <figure>
-                <img src="assets/img/bkash.png" alt="cod" />
-              </figure>
-            </div>
-          </div>
-          <div class="payment-item">
-            <div class="custom-input__checkbox">
-              <input
-                type="checkbox"
-                id="test-1"
-                value="Cash on delivery"
-                v-model="order.paymentType"
-              />
-              <label for="payment3"></label>
-            </div>
-            <div class="payment-item--picture">
-              <figure>
-                <img src="assets/img/paymentGateway.png" alt="cod" />
-              </figure>
-            </div>
-          </div> -->
           <button :disabled="loading" @click="placeOrder">Place Order</button>
         </div>
       </div>
@@ -508,13 +424,6 @@ export default {
         this.loading = false;
         this.removeAll();
         this.removeAllorder();
-        // if (res.data.order.paymentType == "sslcommerz") {
-        //   window.location = res.data.ssldata.GatewayPageURL;
-        // } else if (res.data.order.paymentType == "bKash") {
-        //   window.location = res.data.bkash_data.bkashURL;
-        // } else {
-        //   window.location = `/order-status/${res.data.order.id}`;
-        // }
       } else if (res.status == 422) {
         this.e(res.data.message);
       } else this.swr();
@@ -574,19 +483,6 @@ export default {
       console.log(value-reminder);
       return value - reminder;
     },
-    checkPayment() {
-      // if(this.order.giftVoucherAmount == this.totalCost){
-      //     this.buttons.gift=1
-      //     this.buttons.bkash=0
-      //     this.order.paymentType='Gift Voucher'
-      // }
-      // else if(this.order.dgAmount == this.totalCost){
-      //     this.buttons.dGpay=1
-      //     this.buttons.bkash=0
-      //     this.order.paymentType='DG Pay'
-      // }
-    },
-
     checkbillingZone() {
       let order = this.order;
       if (this.authUser) {
@@ -643,7 +539,6 @@ export default {
       this.changeShippingPrice();
     },
     async getAreas() {
-      // console.log('hello');
       const res = await this.callApi(
         "get",
         `app/get_areas/${this.selected.billingZone}`
@@ -675,8 +570,6 @@ export default {
     ...mapGetters({order: 'order',cartItem:'getCartItem'}),
     totalCost() {
       let cost = this.order.invoiceTotal;
-      // console.log(this.order.invoiceTotal);
-      // console.log(this.order.invoiceTotal);
      if (this.order.membershipDiscount > 0) {
         var totalOld = cost;
         var discountAmount = (this.order.membershipDiscount * totalOld) / 100;
@@ -702,8 +595,6 @@ export default {
         afterDiscount = afterDiscount;
         cost = afterDiscount;
       }
-      // if(this.order.discount) cost = parseFloat(cost) -  parseFloat((cost*this.order.discount)/100)
-      // if(this.order.billingZone) cost = parseFloat(cost) + parseFloat(this.order.shippingPrice)
       if (this.order.giftVoucherAmount > 0)
         cost = cost - this.order.giftVoucherAmount;
       if (this.order.isDGMoney) cost = cost - this.order.dgAmount;
@@ -738,8 +629,6 @@ export default {
         afterDiscount = afterDiscount;
         cost = afterDiscount;
       }
-      // if(this.order.discount) cost = parseFloat(cost) -  parseFloat((cost*this.order.discount)/100)
-      // if(this.order.billingZone) cost = parseFloat(cost) + parseFloat(this.order.shippingPrice)
       if (this.order.giftVoucherCode != ""){
         cost = parseFloat(cost) - parseFloat(this.order.giftVoucherAmount);
       }
@@ -747,8 +636,6 @@ export default {
       cost = this.autoRound(cost);
       if (this.order.shippingPrice > 0) cost = parseFloat(cost) + parseFloat(this.order.shippingPrice);
       return cost
-      // if (this.order.isDGMoney == 1)
-      //   cost = parseFloat(cost) - parseFloat(this.order.dgAmount);
       return cost;
     },
     discountShow() {
@@ -817,7 +704,6 @@ export default {
     let order = this.order;
 
     if (this.authUser) {
-      // this.changeShippingPrice();
       console.log("calling settimeout", order);
 
       if (order.billingCity) {

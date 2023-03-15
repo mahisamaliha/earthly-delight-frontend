@@ -1,152 +1,26 @@
 <template>
   <div>
-    <!--************Navbar****************-->
+    <!-- <Navbar /> -->
+    <div class="header-info">
+      <div class="container">
+          <div class="header-info-content">
+              <div class="header-info-content-item d-none d-lg-block">
+                  Refer a Friend. Get 20% Off
+              </div>
+              <div class="header-info-content-item d-none d-lg-block">
+                  Subscribe Today Get $10 Off
+              </div>
+              <div class="header-info-content-item d-none d-lg-block">
+                  Free Shipping +30 Day Returns
+              </div>
+          </div>
+      </div>
+    </div>    
+        
     <!-----**************Market Section************---->
 
     <section class="container pt-50">
       <div>
-        <div
-          class="shop-filter--mobile--wrapper d-lg-none"
-          v-bind:class="{ active: isFilter }"
-        >
-          <div class="shop-filter--mobile">
-            <div class="shop-filter--mobile-head">
-              <h4>Filter By :</h4>
-              <button type="button" v-on:click="hideFilter()">
-                <i class="las la-times"></i>
-              </button>
-            </div>
-            <div class="shop-filter--searchBy">
-              <div class="shop-searchBy--radio">
-                <h4 class="shop-head">Product Category</h4>
-                <div
-                  class="form-check"
-                  v-for="(category, index) in categories"
-                  :key="index"
-                >
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="flexRadioDefault"
-                    id="flexRadioDefault1"
-                    :value="category.id"
-                    v-model="filter.category"
-                    @change="filterProducts"
-                  />
-                  <label class="form-check-label" for="flexRadioDefault1">
-                    {{ category.catName }}
-                  </label>
-                </div>
-              </div>
-              <div class="shop-searchBy--range">
-                <h4 class="shop-head">Filter By Price</h4>
-                <!-- <div class="input-range">
-                  <span class="multi-range">
-                    <input type="range" min="0" max="50" value="0" id="lower" />
-                    <input
-                      type="range"
-                      min="0"
-                      max="50"
-                      value="50"
-                      id="upper"
-                    />
-                  </span>
-                </div> -->
-                <!-- <p class="price">Price :</p> -->
-                <!-- <p>
-                  <input
-                    class="custom-input__field min-max"
-                    type="text"
-                    placeholder="Min Price"
-                    v-model="filter.minPrice"
-                  /><span class="text">TO</span>
-                  <input
-                    class="custom-input__field min-max"
-                    type="text"
-                    placeholder="Max Price"
-                    v-model="filter.maxPrice"
-                  />
-                  <button>filter</button>
-                </p> -->
-              </div>
-              <div class="shop-searchBy--tag pb-30">
-                <h4 class="shop-head">Choose Tag</h4>
-                <div
-                  class="shop-searchBy--tag---list"
-                  v-for="(tag, index) in tags.data"
-                  :key="index"
-                >
-                  <div
-                    class="tag-item"
-                    @click="addToFilterTag(tag)"
-                    :class="isTagInFilter(tag.id) == true ? 'active' : ''"
-                  >
-                    {{ tag.name }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- <div class="col-lg-3 shop-searchBy d-none d-lg-block">
-          <div class="shop-searchBy--radio">
-            <h4 class="shop-head">Product Category</h4>
-            <div
-              class="form-check"
-              v-for="(category, index) in categories"
-              :key="index"
-            >
-              <input
-                class="form-check-input"
-                type="radio"
-                name="flexRadioDefault"
-                id="flexRadioDefault1"
-                :value="category.id"
-                v-model="filter.category"
-                @change="filterProducts"
-              />
-              <label class="form-check-label" for="flexRadioDefault1">
-                {{ category.catName }}
-              </label>
-            </div>
-          </div>
-          <div class="shop-searchBy--range">
-            <h4 class="shop-head">Filter By Price</h4>
-            <p>
-              <input
-                class="custom-input__field min-max"
-                type="text"
-                placeholder="Min"
-                v-model="filter.minPrice"
-              /><span class="text">TO</span>
-              <input
-                class="custom-input__field min-max"
-                type="text"
-                placeholder="Max"
-                v-model="filter.maxPrice"
-              />
-              <button
-                class="custom-input__field min-max"
-                @click="filterProducts"
-              >
-                filter
-              </button>
-            </p>
-          </div>
-          <div class="shop-searchBy--tag">
-            <h4 class="shop-head">Choose Tag</h4>
-            <div class="shop-searchBy--tag---list">
-              <div
-                class="tag-item"
-                v-for="(tag, index) in tags.data"
-                :key="index"
-                @click="addToFilterTag(tag)"
-              >
-                <span>{{ tag.name }}</span>
-              </div>
-            </div>
-          </div>
-        </div> -->
         <div class="shop-product">
           <div class="shop-product--search">
             <div class="custom-input__group">
@@ -163,46 +37,7 @@
             </div>
           </div>
           <div class="shop-product--display">
-            <!-- <div class="shop-product--mobile d-lg-none">
-              <div class="shop-product--mobile---filter">
-                <button v-on:click="showFilter()">
-                  <i class="lni lni-text-align-justify"></i>
-                  <span>Filter</span>
-                </button>
-              </div>
-              <div class="shop-product--mobile---dropdown">
-                <div class="dropdown">
-                  <button class="dropbtn">
-                    View By<i class="lni lni-chevron-down"></i>
-                  </button>
-                  <div class="dropdown-content">
-                    <a href="#">
-                      <div class="shop-product--display--icon">
-                        <span>View:</span>
-                        <i class="lni lni-grid icon active"></i>
-                        <i class="lni lni-list icon"></i>
-                      </div>
-                    </a>
-                    <a href="#">
-                      <div class="shop-product--display--body">
-                        <p>Showing 1-12 of 24 results</p>
-                      </div>
-                    </a>
-                    <a href="#">
-                      <div class="shop-product--display--default">
-                        <p>
-                          Default Sorting <i class="lni lni-chevron-down"></i>
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div> -->
             <div class="shop-product--display---body">
-              <!-- <span>View:</span>
-              <i class="las la-border-all active"></i>
-              <i class="las la-list"></i> -->
               <div class="item">
                 <ul class="_drop">
                   <li class="iview-ndropdown">
@@ -218,15 +53,7 @@
                           :key="catIndex"
                           :name="category.groupName"
                         >
-                          <!-- <Dropdown placement="right-start" v-if="category.category.length" >
-                            <DropdownItem><span @click="addToFilterCategory(category)"> {{category.groupName}}<Icon type="ios-arrow-forward"></Icon></span></DropdownItem>
-                            <DropdownMenu slot="list">
-                                <DropdownItem v-for="(subCategory,subCatIndex) in category.category" :key="subCatIndex" ><span  @click="addToFilterSubCategory(subCategory)">{{subCategory.catName}}</span></DropdownItem>
-                            </DropdownMenu>
-                        </Dropdown> -->
-
-                          <!-- <DropdownItem v-else ><span @click="addToFilterCategory(category)"> {{category.groupName}}</span></DropdownItem> -->
-                          <DropdownItem placement="right-start"
+                        <DropdownItem placement="right-start"
                             ><span
                               style="font-size: 13px"
                               @click="addToFilterCategory(category)"
@@ -240,38 +67,8 @@
                   </li>
                 </ul>
               </div>
-              <!-- <div class="item" v-if="subCategories.length > 0">
-                <ul class="_drop">
-                  <li class="iview-ndropdown">
-                    <Dropdown trigger="click">
-                      <span>SubCategories</span>
-                      <i class="lni lni-chevron-down"></i>
-                      <DropdownMenu
-                        slot="list"
-                        style="max-height: 250px; overflow: auto; width: 180px"
-                      >
-                        <div
-                          v-for="(subCategory, catIndex) in subCategories"
-                          :key="catIndex"
-                          :name="subCategory.catName"
-                        >
-                          <DropdownItem placement="right-start"
-                            ><span
-                              style="font-size: 13px"
-                              @click="addToFilterSubCategory(subCategory)"
-                            >
-                              {{ subCategory.catName }}</span
-                            ></DropdownItem
-                          >
-                        </div>
-                      </DropdownMenu>
-                    </Dropdown>
-                  </li>
-                </ul>
-              </div> -->
               <div class="item">
                 <Dropdown trigger="click">
-                  <!-- <span >Price</span> -->
                   <span>Filter By Price</span>
                   <i class="lni lni-chevron-down"></i>
                   <DropdownMenu
@@ -330,43 +127,9 @@
                   </DropdownMenu>
                 </Dropdown>
               </div>
-              <!-- <div class="item">
-                <Dropdown trigger="hover">
-                  <span>Choose Tag</span>
-                  <i class="lni lni-chevron-down"></i>
-                  <DropdownMenu
-                    slot="list"
-                    style="max-height: 200px; overflow: auto; width: 180px"
-                  >
-                    <div
-                      v-for="(tag, index) in tags"
-                      :key="index"
-                      :name="tag.name"
-                    >
-                      <DropdownItem
-                        ><span
-                          style="font-size: 13px"
-                          @click="addToFilterTag(tag)"
-                        >
-                          {{ tag.name }}</span
-                        ></DropdownItem
-                      >
-                    </div>
-                  </DropdownMenu>
-                </Dropdown>
-              </div> -->
             </div>
-            <!-- <div class="shop-product--display--body d-none d-lg-block">
-              <p v-if="isLoading == false && products.length < 21">
-                Showing {{ products.length }} of {{ products.length }} results
-              </p>
-              <p v-else-if="isLoading == false && products.length">
-                Showing 21 of {{ products.length }} results
-              </p>
-            </div> -->
             <div class="shop-product--display--default">
               <Dropdown trigger="click" style="cursor: pointer">
-                <!-- <span >sort by</span> -->
                 <span>Default Sorting</span>
                 <i class="lni lni-chevron-down"></i>
                 <DropdownMenu
@@ -440,9 +203,6 @@
                 <span @click="removeFromSelectedFilterTag(index)">&times;</span>
               </button>
             </template>
-            <!-- <button v-if="filterOption.brand" class="active">{{filterOption.brand}}  <span @click="removeFromSelectedFilterBrand"><i class="fas fa-times"></i></span> </button> -->
-            <!-- <button v-if="filterOption.color" class="active">{{filterOption.color}}  <span @click="removeFromSelectedFilterColor"><i class="fas fa-times"></i></span> </button> -->
-            <!-- <button v-if="filterOption.size" class="active">{{filterOption.size}}  <span @click="removeFromSelectedFilterSize"><i class="fas fa-times"></i></span> </button> -->
             <button
               v-if="filterOption.minPrice && filterOption.maxPrice"
               class="active"
@@ -488,9 +248,6 @@
                         <h3 class="product-card__content--title">
                           {{ data.groupeName }}
                         </h3>
-                        <!-- <h4 class="product-card__content--subtitle">
-                          {{ data.productName }} {{ data.model }}
-                        </h4> -->
                         <p
                           class="product-card__content--price"
                           v-if="data.discount"

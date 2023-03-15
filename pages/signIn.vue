@@ -86,7 +86,6 @@ export default {
         this.$store.dispatch("setAuthInfo", res.data.user);
         this.$store.dispatch("setToken", res.data.token);
         this.setCookie("token", res.data.token);
-        // this.$router.push("/");
         this.s("You are logged In");
         this.getCartItemsServer()
         if(this.callCartOb){
@@ -96,21 +95,8 @@ export default {
             this.addToCartServer(this.callCartOb,quantity)
             this.$store.commit('setCallCartOb',null)
             this.$router.push('/cart')
-            // window.location='/cart'
             return
         }
-        if (this.callWishListOb) {
-          let ob = {
-            productId : this.callWishListOb.id,
-          };
-          const res =await this.callApi('post','/app/wishList',ob);
-          if (res.status == 200) {
-            this.s("Added to wishlist !");
-            this.$store.commit("setCallWishListOb", null);
-          }
-        }
-        if (this.$route.query.callback) return this.$router.push(this.$route.query.callback);
-        // if (this.$route.query.callback) return this.$router.push(this.$route.query.callback);
         window.location = "/";
       }
       else if(res.status == 422){
@@ -137,43 +123,15 @@ export default {
             password: this.data.password,
           };
           this.$store.commit("setUnauthorizedCredential", emailPassword);
-          // this.e(res.data.msg);
           this.$router.push(`/account-activation`);
       }
       else this.swr();
-      //  else {
-      //   if (res.status == 400) {
-      //     // this.msg = res.data.msg;
-      //     this.e(res.data.error);
-      //   } else if (res.status == 401) {
-      //     // this.msg = res.data.msg;
-      //     this.e(res.data.error);
-      //   } else if (res.status == 422) {
-      //     if (res.data.email) {
-      //       this.e(res.data.email[0]);
-      //     }
-      //     if (res.data.password) {
-      //       this.e(res.data.password[0]);
-      //     }
-      //   } else if (res.status == 402) {
-      //     let emailPassword = {
-      //       contact: this.data.contact,
-      //       password: this.data.password,
-      //     };
-      //     this.$store.commit("setUnauthorizedCredential", emailPassword);
-      //     this.e(res.data.msg);
-      //     this.$router.push(`/account-activation`);
-      //   } else {
-      //     this.swr();
-      //   }
-      // }
       this.isLoading = false;
     },
   },
   computed:{
       ...mapGetters({
           callCartOb:'getCallCartOb',
-          callWishListOb:'getCallWishListOb',
       })
   },
   mounted() {
