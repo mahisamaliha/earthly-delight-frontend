@@ -41,6 +41,14 @@
               >Add Products</nuxt-link
             >
           </li>
+          <li class="nav-item">
+            <nuxt-link
+              class="nav-link"
+              to="/admin/add-auction"
+              v-if="authUser.userType == 'Admin'"
+              >Add Auction</nuxt-link
+            >
+          </li>
 
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/feedback">Contact Us</nuxt-link>
@@ -119,6 +127,9 @@
               <nuxt-link class="nav-link" to="/auction">Auction</nuxt-link>
             </li>
             <li class="nav-item">
+              <nuxt-link class="nav-link" to="/feedback">Contact Us</nuxt-link>
+            </li>
+            <li class="nav-item">
               <nuxt-link
                 class="nav-link"
                 to="/admin/add-product"
@@ -127,8 +138,13 @@
               >
             </li>
             <li class="nav-item">
-              <nuxt-link class="nav-link" to="/feedback">Contact Us</nuxt-link>
-            </li>
+            <nuxt-link
+              class="nav-link"
+              to="/admin/add-auction"
+              v-if="authUser.userType == 'Admin'"
+              >Add Auction</nuxt-link
+            >
+          </li>
           </ul>
         </div>
         <div class="navbar-item">

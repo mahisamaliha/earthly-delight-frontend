@@ -6,6 +6,8 @@
     <div v-else>
       <section class="container">
         <Button @click="showAddModal">Add New Product</Button>
+        <!-- <Button @click="showAddModal">Add Auction Product</Button> -->
+
 
         <div class="cart-section pt-50 pb-50">
           <div class="cart-section--table">
