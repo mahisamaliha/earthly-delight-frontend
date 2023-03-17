@@ -18,58 +18,21 @@
         </div>
         <ul class="navbar-mobile--body">
           <li class="nav-item">
-            <nuxt-link class="nav-link active" aria-current="page" to="/"
+            <nuxt-link class="nav-link" aria-current="page" to="/"
               >Home</nuxt-link
             >
           </li>
-          <li class="nav-item dropdown">
-            <nuxt-link
-              class="nav-link dropdown-toggle"
-              to="/shop"
-              v-on:click="mobileMenuDropdown(0)"
+          <li class="nav-item">
+            <nuxt-link class="nav-link" aria-current="page" to="/shop"
+              >Shop</nuxt-link
             >
-              Shop
-            </nuxt-link>
-            <transition name="slide">
-              <ul class="" v-if="mobileDropdownIndex === 0">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </transition>
           </li>
-          <!-- <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              v-on:click="mobileMenuDropdown(1)"
-            >
-              Sale
-            </a>
-            <transition name="slide">
-              <ul class="" v-if="mobileDropdownIndex === 1">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </transition>
-          </li> -->
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/about">About Us</nuxt-link>
           </li>
-          <!-- <li class="nav-item">
-            <nuxt-link class="nav-link" to="/wishlist">Wishlist</nuxt-link>
-          </li> -->
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/auction">Auction</nuxt-link>
           </li>
-          <!-- <li class="nav-item">
-            <nuxt-link class="nav-link" to="/accesorie">Accesories</nuxt-link>
-          </li> -->
           <li class="nav-item">
             <nuxt-link
               class="nav-link"
@@ -140,7 +103,7 @@
         <div class="navbar-item d-none d-lg-block">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <nuxt-link class="nav-link active" aria-current="page" to="/"
+              <nuxt-link class="nav-link" aria-current="page" to="/"
                 >Home</nuxt-link
               >
             </li>
@@ -149,37 +112,12 @@
                 >Shop</nuxt-link
               >
             </li>
-            <!-- <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Sale
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </li> -->
             <li class="nav-item">
               <nuxt-link class="nav-link" to="/about">About Us</nuxt-link>
             </li>
             <li class="nav-item">
               <nuxt-link class="nav-link" to="/auction">Auction</nuxt-link>
             </li>
-            <!-- <li class="nav-item">
-              <nuxt-link class="nav-link" to="/accesorie">Accesories</nuxt-link>
-            </li> -->
-            <!-- <li class="nav-item">
-              <nuxt-link class="nav-link" to="/wishlist">Wishlist</nuxt-link>
-            </li> -->
             <li class="nav-item">
               <nuxt-link
                 class="nav-link"
@@ -195,11 +133,6 @@
         </div>
         <div class="navbar-item">
           <ul class="navbar-item__action">
-            <!-- <li>
-              <button v-on:click="showSearchbar()" ref="searchBoxSource">
-                <i class="lni lni-search-alt"> </i>
-              </button>
-            </li> -->
             <li>
               <template v-if="authUser">
                 <nuxt-link
@@ -277,7 +210,6 @@ export default {
       isSidebar: false,
       isSearchbar: false,
       isCart: false,
-      mobileDropdownIndex: -1,
       dataBanner: [],
       filter: {
         search: "",
@@ -304,32 +236,11 @@ export default {
     hideSidebar() {
       this.isSidebar = false;
     },
-    showSearchbar() {
-      this.isSearchbar = true;
-    },
-    hideSearchbar(e) {
-      if (this.isSearchbar) {
-        let target = e.target;
-        var container = this.$refs.searchBox;
-        var source = this.$refs.searchBoxSource;
-        if (!source.contains(target) && !container.contains(target)) {
-          this.isSearchbar = false;
-        }
-      }
-    },
     showCart() {
       this.$router.push("/cart");
-      // this.isCart = true;
     },
     hideCart() {
       this.isCart = false;
-    },
-    mobileMenuDropdown(index) {
-      if (this.mobileDropdownIndex === index) {
-        this.mobileDropdownIndex = -1;
-      } else {
-        this.mobileDropdownIndex = index;
-      }
     },
     async filterProducts() {
       this.isLoading = true;
@@ -343,22 +254,12 @@ export default {
       this.isLoading = false;
     },
     getSearchedProduct(result) {
-      //     const res = await this.callApi(
-      //     "get",
-      //     `/api/get_profile_info/${this.user_id}`
-      // );
       this.product_id = result.id;
       this.$router.push(`/profile/${this.product_id}`);
       this.search = "";
     },
     async getResults() {
       this.isLoading = true;
-      // axios
-      //   .get("/app/shop/product/list", {
-      //     params: { category: this.search },
-      //   })
-      //   .then((res) => (this.results = res.data))
-      //   .catch((error) => {});
       const response = await this.callApi(
         "get",
         `/app/shop/product/list?category=${this.search}|brand=${this.search}|model=${this.search}|tags=${this.search}`
@@ -380,7 +281,6 @@ export default {
     } catch (error) {
       console.log("error from asyncData server");
       console.log(error);
-      //   return redirect("/");
     }
   },
   async created() {
@@ -402,47 +302,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.slide {
-  &-enter {
-    overflow: hidden;
-    max-height: 0;
-
-    &-to {
-      max-height: 500px;
-      overflow: hidden;
-    }
-
-    &-active {
-      -moz-transition-duration: 0.5s;
-      -webkit-transition-duration: 0.5s;
-      -o-transition-duration: 0.5s;
-      transition-duration: 0.5s;
-      -moz-transition-timing-function: ease-in;
-      -webkit-transition-timing-function: ease-in;
-      -o-transition-timing-function: ease-in;
-      transition-timing-function: ease-in;
-    }
-  }
-
-  &-leave {
-    @extend .slide-enter-to;
-
-    &-to {
-      @extend .slide-enter;
-    }
-
-    &-active {
-      -moz-transition-duration: 0.5s;
-      -webkit-transition-duration: 0.5s;
-      -o-transition-duration: 0.5s;
-      transition-duration: 0.5s;
-      -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-      -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-      -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-      transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-    }
-  }
-}
-</style>

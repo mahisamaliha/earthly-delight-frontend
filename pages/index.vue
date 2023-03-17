@@ -134,8 +134,9 @@
                   </div>
                   <div class="product-card__content">
                     <h3 class="product-card__content--title">
-                      {{ data.groupeName }}
+                      {{ data.productName }}
                     </h3>
+                    <!-- bujsi na -->
                     <p class="product-card__content--price" v-if="data.discount">
                       ৳
                       {{
@@ -148,6 +149,7 @@
                     <p class="product-card__content--price" v-else>
                       ৳ {{ data.sellingPrice }}
                     </p>
+                    <!--  -->
                   </div>
                 </div>
               </nuxt-link>
@@ -295,8 +297,6 @@ export default {
   },
   data() {
     return {
-      data: {
-      },
       hooperNewProduct: {
         itemsToShow: 1,
         centerMode: false,
@@ -324,30 +324,10 @@ export default {
           },
         },
       },
-      hooperFeaturedProduct: {
-        itemsToShow: 1,
-        centerMode: false,
-        breakpoints: {
-          450: {
-            centerMode: false,
-            itemsToShow: 2,
-          },
-          800: {
-            centerMode: false,
-            itemsToShow: 3,
-          },
-          1000: {
-            itemsToShow: 4,
-          },
-        },
-      },
       dataBanner: [],
-      categories: [],
       products: [],
       isDataLoading: true,
     };
-  },
-  methods: {
   },
   computed: {
   },
@@ -371,68 +351,15 @@ export default {
     if (response.status == 200) {
       this.dataBanner = response.data;
       console.log("index page");
-      const [resCategories, resProducts] =
+      const [resProducts] =
         await Promise.all([
-          this.callApi("get", "/app/landing_page/categories"),
           this.callApi("get", "/app/landing_page/products"),
         ]);
-      if (resCategories.status == 200 && resProducts.status == 200) {
-        this.categories = resCategories.data;
+      if (resProducts.status == 200) {
         this.products = resProducts.data;
       } else this.e("Oops!", "Something went wrong, please try again!");
       this.isDataLoading = false;
     }
   },
-
-  mounted() {
-    document.addEventListener("click", this.hideSearchbar);
-  },
-  beforeDestroy() {
-    document.removeEventListener("click", this.hideSearchbar);
-  },
 };
 </script>
-
-<style lang="scss">
-.slide {
-  &-enter {
-    overflow: hidden;
-    max-height: 0;
-
-    &-to {
-      max-height: 500px;
-      overflow: hidden;
-    }
-
-    &-active {
-      -moz-transition-duration: 0.5s;
-      -webkit-transition-duration: 0.5s;
-      -o-transition-duration: 0.5s;
-      transition-duration: 0.5s;
-      -moz-transition-timing-function: ease-in;
-      -webkit-transition-timing-function: ease-in;
-      -o-transition-timing-function: ease-in;
-      transition-timing-function: ease-in;
-    }
-  }
-
-  &-leave {
-    @extend .slide-enter-to;
-
-    &-to {
-      @extend .slide-enter;
-    }
-
-    &-active {
-      -moz-transition-duration: 0.5s;
-      -webkit-transition-duration: 0.5s;
-      -o-transition-duration: 0.5s;
-      transition-duration: 0.5s;
-      -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-      -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-      -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-      transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-    }
-  }
-}
-</style>

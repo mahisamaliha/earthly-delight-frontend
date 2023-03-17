@@ -45,51 +45,6 @@
               >
             </li>
             <li class="dashboard-menu--list---item">
-              <nuxt-link
-                class="menu-link"
-                aria-current="page"
-                to="/dashboard-preOrder"
-                ><i class="las la-box"></i>
-                <h4>My Pre-Orders</h4></nuxt-link
-              >
-            </li>
-            <li class="dashboard-menu--list---item">
-              <nuxt-link
-                class="menu-link"
-                aria-current="page"
-                to="/dashboard-notification"
-                ><i class="las la-bell"></i>
-                <h4>Notification</h4></nuxt-link
-              >
-            </li>
-            <li class="dashboard-menu--list---item">
-              <nuxt-link
-                class="menu-link"
-                aria-current="page"
-                to="/dashboard-address"
-                ><i class="las la-map-marker"></i>
-                <h4>Address</h4></nuxt-link
-              >
-            </li>
-            <li class="dashboard-menu--list---item">
-              <nuxt-link
-                class="menu-link"
-                aria-current="page"
-                to="/dashboard-account"
-                ><i class="las la-user"></i>
-                <h4>Account Details</h4></nuxt-link
-              >
-            </li>
-            <li class="dashboard-menu--list---item">
-              <nuxt-link
-                class="menu-link"
-                aria-current="page"
-                to="/dashboard-report"
-                ><i class="las la-clipboard-list"></i>
-                <h4>Report Issue</h4></nuxt-link
-              >
-            </li>
-            <li class="dashboard-menu--list---item">
               <a class="menu-link" aria-current="page" @click="logout"
                 ><i class="las la-sign-out-alt"></i>
                 <h4>Sign Out</h4></a

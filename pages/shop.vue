@@ -5,7 +5,7 @@
       <div class="container">
           <div class="header-info-content">
               <div class="header-info-content-item d-none d-lg-block">
-                  Refer a Friend. Get 20% Off
+                  Refer a Friend. Get 40% Off
               </div>
               <div class="header-info-content-item d-none d-lg-block">
                   Subscribe Today Get $10 Off
@@ -78,50 +78,29 @@
                     <DropdownItem
                       ><span
                         style="font-size: 13px"
-                        @click="addToFilterPrice([1, 500])"
-                        >less than ৳500</span
+                        @click="addToFilterPrice([1, 200])"
+                        >less than ৳200</span
                       ></DropdownItem
                     >
                     <DropdownItem
                       ><span
                         style="font-size: 13px"
-                        @click="addToFilterPrice([501, 1000])"
-                        >৳500 - ৳1000</span
+                        @click="addToFilterPrice([201, 400])"
+                        >৳201 - ৳400</span
                       ></DropdownItem
                     >
                     <DropdownItem
                       ><span
                         style="font-size: 13px"
-                        @click="addToFilterPrice([1001, 5000])"
-                        >৳1000 - ৳5000</span
+                        @click="addToFilterPrice([401, 600])"
+                        >৳401 - ৳600</span
                       ></DropdownItem
                     >
                     <DropdownItem
                       ><span
                         style="font-size: 13px"
-                        @click="addToFilterPrice([5001, 10000])"
-                        >৳5000 - ৳10000</span
-                      ></DropdownItem
-                    >
-                    <DropdownItem
-                      ><span
-                        style="font-size: 13px"
-                        @click="addToFilterPrice([10001, 20000])"
-                        >৳10000 - ৳2000</span
-                      ></DropdownItem
-                    >
-                    <DropdownItem
-                      ><span
-                        style="font-size: 13px"
-                        @click="addToFilterPrice([20001, 50000])"
-                        >৳20000 - ৳50000</span
-                      ></DropdownItem
-                    >
-                    <DropdownItem
-                      ><span
-                        style="font-size: 13px"
-                        @click="addToFilterPrice([50001, 100000])"
-                        >৳50000 - ৳100000</span
+                        @click="addToFilterPrice([601, 1000])"
+                        >৳601 - ৳1000</span
                       ></DropdownItem
                     >
                   </DropdownMenu>
@@ -157,13 +136,6 @@
                       >Price (low - high)</span
                     ></DropdownItem
                   >
-                  <DropdownItem
-                    ><span
-                      style="font-size: 13px"
-                      @click="sortData(['isFeatured', 'desc'])"
-                      >Top Sellers</span
-                    ></DropdownItem
-                  >
                 </DropdownMenu>
               </Dropdown>
             </div>
@@ -179,28 +151,6 @@
                 <span @click="removeFromSelectedFilterCategory(index)"
                   >&times;</span
                 >
-              </button>
-            </template>
-            <template v-if="filterOption.subCategories.length > 0">
-              <button
-                v-for="(item, index) in filterOption.subCategories"
-                :key="item.id"
-                class="active"
-              >
-                {{ item.catName }}
-                <span @click="removeFromSelectedFilterSubCategory(index)"
-                  >&times;</span
-                >
-              </button>
-            </template>
-            <template v-if="filterOption.tags.length > 0">
-              <button
-                v-for="(item, index) in filterOption.tags"
-                :key="item.id"
-                class="active"
-              >
-                {{ item.name }}
-                <span @click="removeFromSelectedFilterTag(index)">&times;</span>
               </button>
             </template>
             <button
@@ -324,8 +274,8 @@ export default {
   components: { Select, Option },
   data() {
     return {
-      isFilter: false,
-      mobileDropdownIndex: -1,
+      // isFilter: false,
+      // mobileDropdownIndex: -1,
       loadMoreLoading: false,
       noProductRemaining: false,
       limit: 20,
@@ -382,31 +332,6 @@ export default {
     }),
   },
   methods: {
-    showFilter() {
-      this.isFilter = true;
-    },
-    hideFilter() {
-      this.isFilter = false;
-    },
-
-    mobileMenuDropdown(index) {
-      if (this.mobileDropdownIndex === index) {
-        this.mobileDropdownIndex = -1;
-      } else {
-        this.mobileDropdownIndex = index;
-      }
-    },
-    // async isTagInFilter(tag) {
-    //   let flag = 1;
-    //   let index = this.filter.tags.findIndex((d) => d == tag);
-    //   if (index == -1) {
-    //     flag = 2;
-    //   }
-
-    //   console.log("in isTagInFilter", tag.id, flag);
-
-    //   return flag;
-    // },
     sortData(key) {
       this.filterOption.default = key[0];
       this.filterOption.order = key[1];
@@ -429,7 +354,6 @@ export default {
       let index2 = this.filterOption.categoryIds.findIndex((d) => d == id);
       this.filterOption.categoryIds.splice(index2, 1);
       this.filterOption.categoies.splice(index, 1);
-      // console.log(this.subCategories);
       if (this.subCategories.length > 0) {
         var filtersubcategory = [];
         this.subCategories.filter((item) => {
@@ -439,7 +363,6 @@ export default {
         });
         this.subCategories = [];
         this.subCategoryIds = [];
-        // this.subCategories=[];
         console.log(filtersubcategory);
         console.log(filtersubcategory.length);
         if (filtersubcategory.length > 0) {
@@ -477,13 +400,6 @@ export default {
     },
     addToFilterCategory(category) {
       if (this.category == undefined) return;
-      // let index = this.filterOption.categoryIds.findIndex(d => d == this.categories[this.category].id);
-      // if(index == -1){
-
-      //   this.filterOption.categoies.push(this.categories[this.category]);
-      //   this.filterOption.categoryIds.push(this.categories[this.category].id)
-      //   this.filterProducts()
-      // }
       let index = this.filterOption.categoryIds.findIndex(
         (d) => d == category.id
       );
@@ -598,14 +514,6 @@ export default {
 
   async created() {
     console.log("Shop page");
-    // if(this.$route.query.str) this.str = this.$route.query.str
-    // if(this.$route.query.order) this.orders = this.$route.query.order
-    // if(this.$route.query.brandId) this.filterOption.brand = this.$route.query.brandId
-    // if(this.$route.query.colour) this.filterOption.color = this.$route.query.colour
-    // if(this.$route.query.size) this.filterOption.size = this.$route.query.size
-    // if(this.$route.query.price) this.filterOption.price = this.$route.query.price
-    // if(this.$route.query.page) this.page = this.$route.query.page
-
     this.page = this.$route.query.page ? this.$route.query.page : 1;
     this.$store.commit("setGlobalProductLoading", true);
     const response = await this.callApi(
@@ -613,7 +521,6 @@ export default {
       `/app/shop/product/list?group=${this.filterOption.categoryIds}&category=${this.filterOption.subCategoryIds}&minPrice=${this.filterOption.minPrice}&maxPrice=${this.filterOption.maxPrice}&tags=${this.filterOption.tagsId}&search=${this.filterOption.search}&default=${this.filterOption.default}&order=${this.filterOption.order}`
     );
     if (response.status == 200) {
-      // this.products = response.data.data;
       this.$store.commit("setAllGlobalProducts", response.data.data);
     } else this.e("Oops!", "Something went wrong, please try again!");
     this.$store.commit("setGlobalProductLoading", false);
@@ -672,46 +579,5 @@ export default {
   text-decoration: underline;
   text-transform: capitalize;
   cursor: pointer;
-}
-.slide {
-  &-enter {
-    overflow: hidden;
-    max-height: 0;
-
-    &-to {
-      max-height: 500px;
-      overflow: hidden;
-    }
-
-    &-active {
-      -moz-transition-duration: 0.5s;
-      -webkit-transition-duration: 0.5s;
-      -o-transition-duration: 0.5s;
-      transition-duration: 0.5s;
-      -moz-transition-timing-function: ease-in;
-      -webkit-transition-timing-function: ease-in;
-      -o-transition-timing-function: ease-in;
-      transition-timing-function: ease-in;
-    }
-  }
-
-  &-leave {
-    @extend .slide-enter-to;
-
-    &-to {
-      @extend .slide-enter;
-    }
-
-    &-active {
-      -moz-transition-duration: 0.5s;
-      -webkit-transition-duration: 0.5s;
-      -o-transition-duration: 0.5s;
-      transition-duration: 0.5s;
-      -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-      -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-      -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-      transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-    }
-  }
 }
 </style>

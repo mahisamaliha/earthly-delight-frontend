@@ -27,7 +27,7 @@
             </figure>
           </div>
         </div>
-        <hooper
+        <!-- <hooper
           :vertical="true"
           style="height: 400px"
           v-if="(allImages.length>0)"
@@ -41,7 +41,7 @@
             </figure>
           </slide>
           <hooper-navigation v-if="(allImages.length>3)? true : false" slot="hooper-addons"></hooper-navigation>
-        </hooper>
+        </hooper> -->
 
       </div>
       <div class="product-details">
