@@ -40,7 +40,7 @@
                   <!-- <td >{{ product.brief_description }}</td> -->
 
                   <td>
-                    <i class="lni lni-pencil"></i>
+                    <i class="lni lni-pencil" @click="showEdit(index)"></i>
                   </td>
                   <td>
                     <i
@@ -60,7 +60,7 @@
           </div>
         </div>
       </section>
-      <Modal v-model="addModal" :closable="false">
+      <Modal v-model="addModal" :closable="true">
         <div>
           <Form label-position="top">
             <FormItem
@@ -195,6 +195,7 @@
                     Upload Image
                   </div>
                 </Upload>
+                <img :src="imageName" />
               </div>
             </FormItem>
           </Form>
@@ -212,7 +213,156 @@
           <Button @click="hideAddModal">Cancel</Button>
         </div>
       </Modal>
+      <Modal v-model="editModal" :closable="true">
+        <div>
+          <Form label-position="top">
+            <FormItem
+              label="Product Name"
+              :error="editErrorMessages.productName"
+              :required="true"
+            >
+              <Input
+                type="text"
+                placeholder="Product Name"
+                v-model="editValue.productName"
+              ></Input>
+            </FormItem>
 
+            <div class="row">
+              <div class="col-6">
+                <FormItem
+                  label="Category"
+                  :error="editErrorMessages.groupId"
+                  :required="true"
+                >
+                  <div class="input-with-add-button">
+                    <Select
+                      v-model="editValue.groupId"
+                      placeholder="Select Category"
+                      @on-change="getEditSubcategory"
+                      filterable
+                    >
+                      <Option
+                        v-for="(group, i) in dataCategory"
+                        :value="group.id"
+                        :key="i"
+                        >{{ group.groupName }}</Option
+                      >
+                    </Select>
+                    <Button
+                      type="primary"
+                      style="padding: 0px 7px"
+                      @click="categoryModal = true"
+                      >Add</Button
+                    >
+                  </div>
+                </FormItem>
+              </div>
+
+              <div class="col-6">
+                <FormItem
+                  label="Subcategory"
+                  :error="editErrorMessages.categoryId"
+                  :required="true"
+                >
+                  <div class="input-with-add-button">
+                    <Select
+                      v-model="editValue.categoryId"
+                      :disabled="editValue.groupId == '' ? true : false"
+                      placeholder="Select Subactegory"
+                      filterable
+                    >
+                      <Option
+                        v-for="(category, i) in dataEditSubcategory"
+                        :value="category.id"
+                        :key="i"
+                        >{{ category.catName }}</Option
+                      >
+                    </Select>
+                    <Button
+                      type="primary"
+                      style="padding: 0px 7px"
+                      :disabled="editValue.groupId == '' ? true : false"
+                      @click="subcategoryModal = true"
+                      >Add</Button
+                    >
+                  </div>
+                </FormItem>
+              </div>
+            </div>
+            <FormItem
+              label="Starting Price"
+              :error="editErrorMessages.sellingPrice"
+              :required="true"
+            >
+              <Input
+                type="number"
+                style="width: 100%"
+                placeholder="Selling Price"
+                v-model="editValue.sellingPrice"
+              ></Input>
+            </FormItem>
+
+            <FormItem
+              label="Description"
+              :error="editErrorMessages.brief_description"
+              :required="true"
+            >
+              <Input
+                v-model="editValue.brief_description"
+                type="textarea"
+                :autosize="{ minRows: 2, maxRows: 5 }"
+                placeholder="Write description..."
+              ></Input>
+            </FormItem>
+
+            <FormItem
+              label="thumbnail Display image"
+              :error="editErrorMessages.productImage"
+              :required="true"
+            >
+              <div>
+                <Upload
+                  ref="uploads"
+                  type="drag"
+                  :multiple="false"
+                  :show-upload-list="true"
+                  :on-success="handleImageSuccess"
+                  :format="['jpg', 'jpeg', 'png']"
+                  :on-format-error="handleFormatError"
+                  :on-error="handleError"
+                  :on-exceeded-size="handleMaxSize"
+                  :on-remove="handleRemove"
+                  :max-size="2048"
+                  action="http://127.0.0.1:8000/app/upload"
+                >
+                  <div style="padding: 5px 0">
+                    <Icon
+                      type="ios-cloud-upload"
+                      size="22"
+                      style="color: #3399ff"
+                    ></Icon>
+                    Upload Image
+                  </div>
+                </Upload>
+              </div>
+              <img :src="imageName" />
+            </FormItem>
+          </Form>
+        </div>
+        <div slot="footer">
+          <Button
+            type="primary"
+            :loading="loading"
+            @click="productUpdate"
+            style="margin-right: 10px"
+          >
+            <span v-if="!loading">Update</span>
+            <span v-else>Please wait...</span>
+          </Button>
+          <Button @click="hideAddModal">Cancel</Button>
+        </div>
+      </Modal>
       <Modal title="View Image" v-model="visible">
         <img :src="modalImageUrl" v-if="visible" style="width: 100%" />
       </Modal>
@@ -228,6 +378,7 @@ export default {
       isDataLoading: false,
       visible: false,
       addModal: false,
+      editModal: false,
       loadMoreLoading: false,
       noProductRemaining: false,
       noPostRemaining: false,
@@ -276,6 +427,27 @@ export default {
         stock: 100,
         averageBuyingPrice: 0,
       },
+      editValue: {
+        productName: "",
+        groupId: "",
+        categoryId: "",
+        brandId: 2,
+        menuId: 1,
+        unit: "Pcs",
+        tags: [],
+        model: "Tree",
+        sellingPrice: 0,
+        discount: 0,
+        productImage: "",
+        adminDiscount: 0,
+        appDiscount: 0,
+        openingQuantity: 0,
+        openingUnitPrice: 0,
+        brief_description: "",
+        description: {},
+        stock: 100,
+        averageBuyingPrice: 0,
+      },
       errorMessages: {
         productName: "",
         groupId: "",
@@ -289,29 +461,52 @@ export default {
         productImage: "",
         description: "",
       },
+      editErrorMessages: {
+        productName: "",
+        groupId: "",
+        categoryId: "",
+        menuId: "",
+        brief_description: "",
+        brandId: "",
+        unit: "",
+        model: "",
+        sellingPrice: "",
+        productImage: "",
+        description: "",
+      },
+      index: -1,
       limit: 5,
       dataCategory: [],
       dataSubcategory: [],
+      dataEditSubcategory: [],
       products: [],
+      isEditingItem: false,
+      imageName: "",
     };
   },
   methods: {
     showAddModal() {
+      this.imageName = "";
       this.addModal = true;
+      this.clearErrorMessage();
     },
     hideAddModal() {
+      this.imageName = "";
       this.addModal = false;
+      this.editModal = false;
+      this.clearErrorMessage();
     },
 
     handleImageSuccess(res, file) {
       res = `http://localhost:8000/images/${res}`;
+      this.imageName = res;
+
       if (this.isEditingItem) {
         console.log("inside");
-        this.$refs.editDataUploads.clearFiles();
-        return (this.editData.productImage = res);
+        return (this.editValue.productImage = res);
+      } else {
+        this.formValue.productImage = res;
       }
-      console.log(res);
-      this.formValue.productImage = res;
     },
 
     async handleRemove(file, fileList) {
@@ -375,6 +570,97 @@ export default {
         productImage: "",
         description: "",
       };
+      this.editErrorMessages = {
+        productName: "",
+        groupId: "",
+        categoryId: "",
+        menuId: "",
+        brief_description: "",
+        brandId: "",
+        unit: "",
+        model: "",
+        sellingPrice: "",
+        productImage: "",
+        description: "",
+      };
+    },
+    showEdit(index) {
+      this.clearErrorMessage();
+      if (this.products[index].id) {
+        this.isEditingItem = true;
+        this.index = index;
+        this.editValue.id = this.products[index].id;
+        this.editValue.productName = this.products[index].productName;
+        this.editValue.groupId = this.products[index].groupId;
+        this.getEditSubcategory(this.editValue.groupId);
+        this.editValue.categoryId = this.products[index].categoryId;
+        this.editValue.brief_description =
+          this.products[index].brief_description;
+        this.editValue.sellingPrice = this.products[index].sellingPrice;
+        this.editValue.productImage = this.products[index].productImage;
+        this.imageName = this.products[index].productImage;
+
+        this.editModal = true;
+      }
+    },
+    async productUpdate() {
+      let validation = true;
+      this.clearErrorMessage();
+      if (
+        this.editValue.productName == "" ||
+        this.editValue.productName.trim() == ""
+      ) {
+        validation = false;
+        this.editErrorMessages.productName = "Product Name is required!";
+      }
+
+      if (this.editValue.groupId == "") {
+        validation = false;
+        this.editErrorMessages.groupId = "Category is required!";
+      }
+
+      if (this.editValue.categoryId == "") {
+        validation = false;
+        this.editErrorMessages.categoryId = "Subcategory is required!";
+      }
+
+      if (this.editValue.brief_description == "") {
+        validation = false;
+        this.editErrorMessages.brief_description = "Description is required!";
+      }
+
+      if (this.editValue.sellingPrice <= 0) {
+        validation = false;
+        this.editErrorMessages.sellingPrice =
+          "Please give a valid selling price!";
+      }
+
+      if (validation == false) return this.$Message.error("Validation Failed!");
+      this.editValue.brief_description =
+        "<p>" + this.editValue.brief_description + "</p>";
+      this.sending = true;
+      const res = await this.callApi(
+        "post",
+        "/app/main_product_update",
+        this.editValue
+      );
+
+      if (res.status === 201) {
+        this.getProduct();
+        this.s("Product Updated!!");
+        this.editModal = false;
+      } else {
+        if (res.status == 422) {
+          for (let i in res.data.errors) {
+            this.errors = res.data.errors;
+            // this.e(res.data.errors[i][0]);
+          }
+        } else {
+          this.swr();
+        }
+      }
+      this.sending = false;
+      this.errors = [];
     },
 
     async productAdd() {
@@ -473,6 +759,17 @@ export default {
       );
       if (response.status == 200) {
         this.dataCategory = response.data.data;
+      } else this.e("Oops!", "Something went wrong, please try again!");
+    },
+    async getEditSubcategory(k) {
+      this.subcategoryValue.group_id = k;
+      this.editValue.categoryId = "";
+      const response = await this.callApi(
+        "get",
+        `/app/category?groupId=${this.editValue.groupId}`
+      );
+      if (response.status == 200) {
+        this.dataEditSubcategory = response.data.data;
       } else this.e("Oops!", "Something went wrong, please try again!");
     },
     async getSubcategory(k) {
