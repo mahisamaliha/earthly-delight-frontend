@@ -47,7 +47,6 @@
                     </div>
                   </template>
                   <template v-else>৳ {{ cart.vproduct.sellingPrice }}</template>
-                  <!-- {{ cart.vproduct.sellingPrice }} -->
                 </td>
                 <td> {{ cart.quantity }} </td>
                 <td>
@@ -100,19 +99,9 @@ export default {
   data() {
     return {
       total: 0,
-      isCoupon: false,
-      isReferral: false,
       carts: [],
-
       userId: "",
-      ismember: false,
-      isGiftVoucher: false,
-      isReferral: false,
       isLoading: false,
-      settings: {
-        refererBonus: 0,
-        isShippingFree: 0,
-      },
     };
   },
   methods: {
@@ -123,9 +112,6 @@ export default {
       }
       let order = this.order;
       if (this.cartItem.length == 0) return this.i('Your cart is empty!')
-      if (!this.isCoupon) order.coupon = ''
-      if (!this.isGiftVoucher) order.giftVoucherCode = ''
-      if (this.order.isDGMoney == 0) order.dgAmount = 0
       this.$store.commit('order', order);
       if (this.cartItem.length == 0) return this.i('Your cart is empty!')
       this.$router.push('/checkout')
@@ -153,11 +139,6 @@ export default {
       this.getCart();
       return
     },
-    autoRound(value) {
-      let reminder = (value % 10)
-      this.order.roundAmount = reminder;
-      return value - reminder;
-    },
   },
   computed: {
     ...mapGetters({ order: 'order', cartItem: 'getCartItem' }),
@@ -165,41 +146,8 @@ export default {
     discount() {
       return this.$store.state.order.discount;
     },
-    coupon() {
-      return this.$store.state.order.coupon;
-    },
     totalCostWithShipping() {
       let cost =  this.total;
-      if (this.order.membershipDiscount > 0) {
-        var totalOld = cost
-        var discountAmount = (this.order.membershipDiscount * totalOld) / 100
-        discountAmount = Math.ceil(discountAmount);
-        var afterDiscount = totalOld - discountAmount
-        this.order.membershipDiscountAmount = discountAmount
-        afterDiscount = (afterDiscount)
-        cost = afterDiscount
-      }
-      if (this.order.refferalDiscount > 0) {
-        var totalOld = cost
-        var discountAmount = (this.order.refferalDiscount * totalOld) / 100
-        discountAmount = Math.ceil(discountAmount);
-        var afterDiscount = totalOld - discountAmount
-        this.order.refferalDiscountAmount = discountAmount
-        afterDiscount = (afterDiscount)
-        cost = afterDiscount
-      }
-      else if (this.order.promoDiscount > 0) {
-        var totalOld = cost
-        var discountAmount = (this.order.promoDiscount * totalOld) / 100
-        discountAmount = Math.ceil(discountAmount);
-        var afterDiscount = totalOld - discountAmount
-        this.order.promoDiscountAmount = discountAmount
-        afterDiscount = (afterDiscount)
-        cost = afterDiscount
-      }
-      if (this.order.giftVoucherCode != '') cost = parseFloat(cost) - parseFloat(this.order.giftVoucherAmount)
-      if (this.order.isDGMoney == 1) cost = parseFloat(cost) - parseFloat(this.order.dgAmount)
-      if (this.order.shippingPrice > 0) cost = parseFloat(cost) + parseFloat(this.order.shippingPrice)
       return cost
     }
   },
@@ -210,24 +158,10 @@ export default {
         order.billingAddress = this.authUser.customer.address
         order.postCode = this.authUser.customer.postCode
       }
-      if (this.authUser.customer && this.authUser.customer.barcode) {
-        order.discount = 10
-        order.membershipDiscount = 10
-        order.refferalDiscount = 0
-        order.refferalDiscountAmount = 0
-        order.promoDiscount = 0
-        order.promoDiscountAmount = 0
-        order.discountType = "Membership Discount"
-        this.ismember = true
-      }
     }
     this.$store.commit('order', order);
   },
   async created() {
-    let order = {
-      coupon: '',
-      discount: 0,
-    }
     await this.getCart();
   },
 };

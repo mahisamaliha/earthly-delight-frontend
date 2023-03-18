@@ -175,9 +175,5 @@ export default {
   beforeDestroy() {
     document.removeEventListener("click", this.hideSearchbar);
   },
-
-  // created() {
-  //   this.form_data.email = this.$route.query.contact;
-  // },
 };
 </script>

@@ -25,7 +25,6 @@
                             </thead>
 
                             <tbody>
-                                <tr></tr>
                                 <tr v-for="(auction, index) in auctions" :key="index">
                                     <td>
                                         <img :src="auction.image" alt="Product" />
@@ -244,7 +243,7 @@ export default {
             this.editModal = false;
             this.clearErrorMessage();
         },
-
+        // up or edit image by user
         handleImageSuccess(res, file) {
             res = `http://localhost:8000/images/${res}`;
             this.imageName = res;
@@ -259,7 +258,7 @@ export default {
 
         async handleRemove(file, fileList) {
             let image = this.formValue.image;
-            this.$refs.editDataUploads.clearFiles();
+            this.$refs.editDataUploads.clearFiles(); //clear upload image
             const res = await this.callApi("post", "/app/delete_auction_image", {
                 imageName: image,
             });
@@ -280,7 +279,7 @@ export default {
         handleError(res, file) {
             this.$Notice.warning({
                 title: "The file format is incorrect",
-                desc: `${file.errors.file.length
+                desc: `${file.errors.file.length //descrip of error
                     ? file.errors.file[0]
                     : "Something went wrong!"
                     }`,
@@ -323,10 +322,8 @@ export default {
                 this.editValue.id = this.auctions[index].id;
                 this.editValue.price = this.auctions[index].price;
                 this.editValue.bidding_list = this.auctions[index].bidding_list;
-                // this.getEditSubcategory(this.editValue.groupId);
                 this.editValue.current_timer = this.auctions[index].current_timer;
-                this.editValue.description =
-                    this.auctions[index].description;
+                this.editValue.description = this.auctions[index].description;
                 this.imageName = this.auctions[index].image;
                 this.editValue.highest_bid = this.auctions[index].highest_bid;
                 this.editValue.current_bid = this.auctions[index].current_bid;
@@ -372,7 +369,7 @@ export default {
 
             if (validation == false) return this.$Message.error("Validation Failed!");
             this.editValue.description =
-                "<p>" + this.editValue.description + "</p>";
+                this.editValue.description;
             this.sending = true;
             const res = await this.callApi(
                 "post",
@@ -435,7 +432,7 @@ export default {
 
             if (validation == false) return this.$Message.error("Validation Failed!");
             this.formValue.description =
-                "<p>" + this.formValue.description + "</p>";
+                this.formValue.description;
             this.loading = true;
             const res = await this.callApi(
                 "post",
@@ -503,6 +500,8 @@ export default {
     async created() {
         this.getProduct();
     },
+
+    //helps to get more data in the component
     mounted() {
         window.onscroll = () => {
             this.bottomOfWindow =

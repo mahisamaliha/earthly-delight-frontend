@@ -80,27 +80,6 @@
         </div>
       </div>
     </div>
-    <div
-      class="navbar-search"
-      v-bind:class="{ active: isSearchbar }"
-      ref="searchBox"
-    >
-      <div class="navbar-search-input">
-        <input type="text" placeholder="Search..." v-model="search" />
-        <button type="button" class="search-button">
-          <i class="lni lni-search-alt"></i>
-        </button>
-      </div>
-      <div class="navbar-search-cancel">
-        <button
-          type="button"
-          class="cancel-button"
-          v-on:click="isSearchbar = false"
-        >
-          <i class="lni lni-close"></i>
-        </button>
-      </div>
-    </div>
     <nav class="navbar navbar-expand-lg">
       <div class="container header-content">
         <div class="navbar-item navbar-itemLogo">
@@ -220,25 +199,12 @@ export default {
   },
   data() {
     return {
-      data: {
-        email: "",
-      },
       isSidebar: false,
-      isSearchbar: false,
       isCart: false,
       dataBanner: [],
-      filter: {
-        search: "",
-      },
-      search: "",
       results: [],
       isDataLoading: true,
     };
-  },
-  watch: {
-    search(after, before) {
-      this.getResults();
-    },
   },
   computed: {
     ...mapGetters({
@@ -258,33 +224,6 @@ export default {
     hideCart() {
       this.isCart = false;
     },
-    async filterProducts() {
-      this.isLoading = true;
-      const response = await this.callApi(
-        "get",
-        `/app/shop/product/list?search=${this.search}`
-      );
-      if (response.status == 200) {
-        this.products = response.data.data;
-      } else this.swr();
-      this.isLoading = false;
-    },
-    getSearchedProduct(result) {
-      this.product_id = result.id;
-      this.$router.push(`/profile/${this.product_id}`);
-      this.search = "";
-    },
-    async getResults() {
-      this.isLoading = true;
-      const response = await this.callApi(
-        "get",
-        `/app/shop/product/list?category=${this.search}|brand=${this.search}|model=${this.search}|tags=${this.search}`
-      );
-      if (response.status == 200) {
-        this.results = response.data.data;
-      } else this.swr();
-      this.isLoading = false;
-    },
   },
   async asyncData({ app, store, redirect, params }) {
     try {
@@ -300,21 +239,12 @@ export default {
     }
   },
   async created() {
-    console.log("index page");
-    console.log(this.cartItem);
     this.isDataLoading = false;
-    await this.filterProducts();
     const response = await this.callApi("get", "/app/landing_page/banners");
     if (response.status == 200) {
       this.dataBanner = response.data;
       this.isDataLoading = false;
     }
-  },
-  mounted() {
-    document.addEventListener("click", this.hideSearchbar);
-  },
-  beforeDestroy() {
-    document.removeEventListener("click", this.hideSearchbar);
   },
 };
 </script>

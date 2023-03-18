@@ -22,15 +22,11 @@
         <div class="auction container pt-50 pb-50">
             <div class="auction-section pb-30" v-for="auction in auctions" :key="auction.id">
                 <div class="auction-img">
-                    <!-- <img :src="auction.image" /> -->
-
                     <div class="img">
                         <h4>{{ auction.id }}.</h4>
                         <div>
                             <figure class="grid-list--picture---first">
-                                <!-- <img src="/assets/img/about1.png" alt="" /> -->
                                 <img :src="auction.image" />
-
                             </figure>
                         </div>
                     </div>
@@ -46,7 +42,6 @@
                                 <button @click="placeBid(auction.id)">Bid</button>
                                 <div class="icon">
                                     <button @click="decrement"><i class="las la-minus"></i></button>
-                                    <!-- <p>৳ {{ auction.current_bid }} {{value}}</p> -->
                                     <p>৳ {{value}}</p>
                                     <button @click="increment"><i class="las la-plus"></i></button>
                                 </div>
@@ -55,10 +50,7 @@
                         <div class="bidding-details">
                             <ul>
                                 <li>
-                                    <!-- BEAUTIFUL BONSAI TREE: Very Unique Bonsai Material, with leaves and branches that weep.
-                                Fast growing, a unique specimen indeed. -->
                                     <p>{{ auction.description }}</p>
-
                                 </li>
                             </ul>
                         </div>
@@ -67,11 +59,6 @@
 
             </div>
         </div>
-
-        <!-- <div v-for="auction in auctions" :key="auction.id">
-            <img :src="auction.image" />
-            <p>{{ auction.description }}</p>
-        </div> -->
     </div>
 </template>
 <script>
@@ -89,14 +76,10 @@ export default {
             const res = await this.callApi("get", "/app/auction");
             if (res.status == 200) {
                 this.auctions = res.data.data;
-
-                // this.message = res.data;
                 console.log(this.message);
             } else {
                 this.message = "Error calling API";
-            }
-
-            
+            }  
         },
         async placeBid(auctionId) {
             const res2 = await this.callApi("get", "/app/get-user-id");

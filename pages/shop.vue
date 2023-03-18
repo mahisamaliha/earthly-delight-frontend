@@ -264,6 +264,7 @@
     </section>
 
     <!--***************Footer Section***************-->
+    
   </div>
 </template>
 
@@ -274,19 +275,15 @@ export default {
   components: { Select, Option },
   data() {
     return {
-      // isFilter: false,
-      // mobileDropdownIndex: -1,
       loadMoreLoading: false,
       noProductRemaining: false,
       limit: 20,
       categories: [],
       subCategories: [],
       subCategoryIds: [],
-      // products: [],
-      tags: [],
       price: 0,
       category: -1,
-      page: 1,
+
       filterOption: {
         categoryIds: [],
         subCategoryIds: [],
@@ -298,15 +295,13 @@ export default {
         minPrice: "",
         maxPrice: "",
         order: [],
-        tags: [],
-        tagsId: [],
       },
+
       filter: {
         group: "",
         category: "",
         minPrice: "",
         maxPrice: "",
-        tags: [],
         search: "",
         default: "",
         order: "",
@@ -320,8 +315,6 @@ export default {
       if (this.filterOption.subCategoryIds.length > 0) flag = false;
       if (this.filterOption.categoryIds.length > 0) flag = false;
       if (this.filterOption.categoies.length > 0) flag = false;
-      if (this.filterOption.tags.length > 0) flag = false;
-      if (this.filterOption.tagsId.length > 0) flag = false;
       if (this.filterOption.maxPrice && this.filterOption.minPrice)
         flag = false;
       return flag;
@@ -332,23 +325,24 @@ export default {
     }),
   },
   methods: {
+    // sort data depending on criteria
     sortData(key) {
       this.filterOption.default = key[0];
       this.filterOption.order = key[1];
       this.filterProducts();
     },
+    // setting all valeus as null
     removeFromSelectedFilterAll() {
       this.filterOption.categoies = [];
       this.filterOption.categoryIds = [];
       this.filterOption.subCategoryIds = [];
       this.filterOption.subCategories = [];
-      this.filterOption.tags = [];
-      this.filterOption.tagsId = [];
       this.subCategories = [];
       this.filterOption.minPrice = "";
       this.filterOption.maxPrice = "";
       this.filterProducts();
     },
+    // remove a particular category & its subcategory
     removeFromSelectedFilterCategory(index) {
       let id = this.filterOption.categoies[index].id;
       let index2 = this.filterOption.categoryIds.findIndex((d) => d == id);
@@ -374,6 +368,7 @@ export default {
       }
       this.filterProducts();
     },
+    // remove a particular subcategory
     removeFromSelectedFilterSubCategory(index) {
       let id = this.filterOption.subCategories[index].id;
       let index2 = this.filterOption.subCategoryIds.findIndex((d) => d == id);
@@ -381,23 +376,19 @@ export default {
       this.filterOption.subCategories.splice(index, 1);
       this.filterProducts();
     },
-    removeFromSelectedFilterTag(index) {
-      let id = this.filterOption.tags[index].id;
-      let index2 = this.filterOption.tagsId.findIndex((d) => d == id);
-      this.filterOption.tagsId.splice(index2, 1);
-      this.filterOption.tags.splice(index, 1);
-      this.filterProducts();
-    },
+    // remove price cat
     removeFromSelectedFilterPrice() {
       this.filterOption.minPrice = "";
       this.filterOption.maxPrice = "";
       this.filterProducts();
     },
+    // add a price filter
     addToFilterPrice(price) {
       this.filterOption.minPrice = price[0];
       this.filterOption.maxPrice = price[1];
       this.filterProducts();
     },
+    // add a category filter along with subcategory
     addToFilterCategory(category) {
       if (this.category == undefined) return;
       let index = this.filterOption.categoryIds.findIndex(
@@ -417,6 +408,7 @@ export default {
         this.filterProducts();
       }
     },
+    // add a subcategory filter
     addToFilterSubCategory(category) {
       let index = this.filterOption.subCategoryIds.findIndex(
         (d) => d == category.id
@@ -427,27 +419,24 @@ export default {
         this.filterProducts();
       }
     },
-    async addToFilterTag(tag) {
-      let index = this.filterOption.tagsId.findIndex((d) => d == tag.id);
-      if (index == -1) {
-        this.filterOption.tags.push(tag);
-        this.filterOption.tagsId.push(tag.id);
-        await this.filterProducts();
-      }
-    },
+    // filters products based on criteria
     async filterProducts() {
       window.history.pushState(
-        {},
+        // js object to store new history entry
+        {}, 
         null,
-        `${this.$route.path}?group=${this.filterOption.categoryIds}&page=${this.page}&limit=${this.limit}&category=${this.filterOption.subCategoryIds}&minPrice=${this.filterOption.minPrice}&maxPrice=${this.filterOption.maxPrice}&tags=${this.filterOption.tagsId}&default=${this.filterOption.default}&search=${this.filterOption.search}&order=${this.filterOption.order}`
+        `${this.$route.path}?group=${this.filterOption.categoryIds}&limit=${this.limit}
+        &category=${this.filterOption.subCategoryIds}&minPrice=${this.filterOption.minPrice}
+        &maxPrice=${this.filterOption.maxPrice}&default=${this.filterOption.default}&search=${this.filterOption.search}&order=${this.filterOption.order}`
       );
       this.$store.commit("setGlobalProductLoading", true);
       const response = await this.callApi(
         "get",
-        `/app/shop/product/list?group=${this.filterOption.categoryIds}&page=${this.page}&limit=${this.limit}&category=${this.filterOption.subCategoryIds}&minPrice=${this.filterOption.minPrice}&maxPrice=${this.filterOption.maxPrice}&tags=${this.filterOption.tagsId}&search=${this.filterOption.search}&default=${this.filterOption.default}&order=${this.filterOption.order}`
+        `/app/shop/product/list?group=${this.filterOption.categoryIds}&limit=${this.limit}
+        &category=${this.filterOption.subCategoryIds}&minPrice=${this.filterOption.minPrice}
+        &maxPrice=${this.filterOption.maxPrice}&search=${this.filterOption.search}&default=${this.filterOption.default}&order=${this.filterOption.order}`
       );
       if (response.status == 200) {
-        // this.products = response.data.data;
         this.$store.commit("setAllGlobalProducts", response.data.data);
       } else this.e("Oops!", "Something went wrong, please try again!");
       this.$store.commit("setGlobalProductLoading", false);
@@ -461,7 +450,10 @@ export default {
       this.loadMoreLoading = true;
       const res = await this.callApi(
         "get",
-        `/app/shop/product/list?group=${this.filterOption.categoryIds}&page=${this.page}&category=${this.filterOption.subCategoryIds}&minPrice=${this.filterOption.minPrice}&maxPrice=${this.filterOption.maxPrice}&tags=${this.filterOption.tagsId}&limit=${this.limit}&default=${this.filterOption.default}&search=${this.filterOption.search}&order=${this.filterOption.order}`
+        `/app/shop/product/list?group=${this.filterOption.categoryIds}
+        &category=${this.filterOption.subCategoryIds}&minPrice=${this.filterOption.minPrice}
+        &maxPrice=${this.filterOption.maxPrice}&limit=${this.limit}&default=${this.filterOption.default}
+        &search=${this.filterOption.search}&order=${this.filterOption.order}`
       );
       if (res.status == 200) {
         let prevLength = this.products.length;
@@ -480,9 +472,9 @@ export default {
       console.log("Load more is finished! length", this.products.length);
     },
   },
+  // monitor the changes
   watch: {
     "$route.fullPath": function (newVal, oldVal) {
-      // watch it
       console.log("Prop changed: ", newVal, " | was: ", oldVal);
       window.scrollTo(0, 0);
       if (this.$route.query.str) this.str = this.$route.query.str;
@@ -504,9 +496,6 @@ export default {
         this.filterOption.size = this.$route.query.size;
       if (this.$route.query.price)
         this.filterOption.price = this.$route.query.price;
-      if (this.$route.query.page) this.page = this.$route.query.page;
-
-      this.page = this.$route.query.page ? this.$route.query.page : 1;
 
       this.filterProducts();
     },
@@ -514,42 +503,24 @@ export default {
 
   async created() {
     console.log("Shop page");
-    this.page = this.$route.query.page ? this.$route.query.page : 1;
     this.$store.commit("setGlobalProductLoading", true);
     const response = await this.callApi(
       "get",
-      `/app/shop/product/list?group=${this.filterOption.categoryIds}&category=${this.filterOption.subCategoryIds}&minPrice=${this.filterOption.minPrice}&maxPrice=${this.filterOption.maxPrice}&tags=${this.filterOption.tagsId}&search=${this.filterOption.search}&default=${this.filterOption.default}&order=${this.filterOption.order}`
+      `/app/shop/product/list?group=${this.filterOption.categoryIds}&category=${this.filterOption.subCategoryIds}
+      &minPrice=${this.filterOption.minPrice}&maxPrice=${this.filterOption.maxPrice}&search=${this.filterOption.search}
+      &default=${this.filterOption.default}&order=${this.filterOption.order}`
     );
     if (response.status == 200) {
       this.$store.commit("setAllGlobalProducts", response.data.data);
     } else this.e("Oops!", "Something went wrong, please try again!");
     this.$store.commit("setGlobalProductLoading", false);
 
-    const [resCategories, resTags] = await Promise.all([
+    const [resCategories] = await Promise.all([
       this.callApi("get", "/app/shop/categories"),
-      this.callApi("get", "/app/shop/tags"),
     ]);
-    if (resCategories.status == 200 && resTags.status == 200) {
+    if (resCategories.status == 200) {
       this.categories = resCategories.data.data;
-      this.tags = resTags.data.data;
     } else this.e("Oops!", "Something went wrong, please try again!");
-  },
-  mounted() {
-    document.addEventListener("click", this.hideSearchbar);
-    window.onscroll = () => {
-      this.bottomOfWindow =
-        window.pageYOffset + window.innerHeight >
-        document.body.scrollHeight - 100;
-
-      if (this.bottomOfWindow) {
-        if (!this.loadMoreLoading) {
-          this.loadMore(20);
-        }
-      }
-    };
-  },
-  beforeDestroy() {
-    document.removeEventListener("click", this.hideSearchbar);
   },
 };
 </script>

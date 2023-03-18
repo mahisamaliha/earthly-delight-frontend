@@ -6,8 +6,6 @@
     <div v-else>
       <section class="container">
         <Button @click="showAddModal">Add New Product</Button>
-        <!-- <Button @click="showAddModal">Add Auction Product</Button> -->
-
 
         <div class="cart-section pt-50 pb-50">
           <div class="cart-section--table">
@@ -17,12 +15,8 @@
                   <th scope="col">Image</th>
                   <th scope="col">Product Name</th>
                   <th scope="col">Category</th>
-
                   <th scope="col">Subcategory</th>
-
                   <th scope="col">Selling Price</th>
-                  <!-- <th scope="col">Description</th> -->
-
                   <th scope="col">Update</th>
                   <th scope="col">Remove</th>
                 </tr>
@@ -36,7 +30,6 @@
                   </td>
                   <td>{{ product.productName }}</td>
                   <td>{{ product.group.groupName }}</td>
-
                   <td>{{ product.category.catName }}</td>
                   <td>{{ product.sellingPrice }}</td>
                   <!-- <td >{{ product.brief_description }}</td> -->

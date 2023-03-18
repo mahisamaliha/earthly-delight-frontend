@@ -27,22 +27,6 @@
             </figure>
           </div>
         </div>
-        <!-- <hooper
-          :vertical="true"
-          style="height: 400px"
-          v-if="(allImages.length>0)"
-          :settings="hooperProduct"
-          :itemsToShow="4.5"
-          class="product-picture--min"
-        >
-          <slide class="product-picture--min---card" v-for="(image,index) in allImages" :key="index">
-            <figure class="product-image" @click="(mainImages=image)">
-              <img :src="image.url" alt="Product" />
-            </figure>
-          </slide>
-          <hooper-navigation v-if="(allImages.length>3)? true : false" slot="hooper-addons"></hooper-navigation>
-        </hooper> -->
-
       </div>
       <div class="product-details">
         <h4 class="title">Name : {{productDetails.productName}}</h4>
@@ -53,16 +37,16 @@
           </h4>
         </div>
         <div class="product-varient d-flex" style="margin-bottom:10px;">
-                <template v-if="allVariation && allVariation.length > 0">
+            <template v-if="allVariation && allVariation.length > 0">
 
-                    <div class="pro-color" v-for="(item,index) in allVariation" :key="index">
-                        <select v-model="productVariation[item.name]" @change="getVariableProduct(index)">
-                            <option value=""  disabled selected>{{item.name}}</option>
-                            <option v-for="(val,i) in item.values" :key="i" :value="val.value" >{{val.value}}</option>
-                        </select>
-                    </div>
-                </template>
-            </div>
+                <div class="pro-color" v-for="(item,index) in allVariation" :key="index">
+                    <select v-model="productVariation[item.name]" @change="getVariableProduct(index)">
+                        <option value=""  disabled selected>{{item.name}}</option>
+                        <option v-for="(val,i) in item.values" :key="i" :value="val.value" >{{val.value}}</option>
+                    </select>
+                </div>
+            </template>
+        </div>
         <div class="product-details--text">
         <p>
           </p>
@@ -145,53 +129,48 @@ export default {
   },
   data() {
     return {
-      isSidebar: false,
-      isSearchbar: false,
-      isCart: false,
-      isFilter: false,
-      mobileDropdownIndex: -1,
       isProductInfoIndex: 1,
       hooperProduct: {
         centerMode: false,
         wheelControl: false,
       },
       variableProduct:{},
-      allReviews:[],
+      // allReviews:[],
       allVariation:[],
       variableProduct:[],
       variationproduct:[],
-      reviewForm:{
-        productId:-1,
-        rating:0,
-        content:'',
-        userId:0
-      },
+      // reviewForm:{
+      //   productId:-1,
+      //   rating:0,
+      //   content:'',
+      //   userId:0
+      // },
       variableProduct:{id:0},
       isLoading: true,
       productDetails: "",
       customerRating:0,
-      reviews: [],
+      // reviews: [],
       product:{},
       mainImages:'',
       allImages:[],
       quantity: 1,
-      hooperFeaturedProduct: {
-        itemsToShow: 1,
-        centerMode: false,
-        breakpoints: {
-          450: {
-            centerMode: false,
-            itemsToShow: 2,
-          },
-          800: {
-            centerMode: false,
-            itemsToShow: 3,
-          },
-          1000: {
-            itemsToShow: 4,
-          },
-        },
-      },
+      // hooperFeaturedProduct: {
+      //   itemsToShow: 1,
+      //   centerMode: false,
+      //   breakpoints: {
+      //     450: {
+      //       centerMode: false,
+      //       itemsToShow: 2,
+      //     },
+      //     800: {
+      //       centerMode: false,
+      //       itemsToShow: 3,
+      //     },
+      //     1000: {
+      //       itemsToShow: 4,
+      //     },
+      //   },
+      // },
     };
 
   },
@@ -348,34 +327,34 @@ export default {
         this.swr();
       }
     },
-    async addReview(){
-      if(!this.authUser){
-            this.i('Please Login first!')
-            return this.$router.push(`/signIn?callback=${this.$route.path}`)
-        }
-      if(this.reviewForm.content.trim()==''){
-       return this.i('Description Required!')
-      }
-      if(this.reviewForm.rating==0){
-        return this.i("Rating required!")
-      }
-      this.reviewForm.userId = this.authUser.id
-      this.reviewForm.productId = this.productDetails.id
-      const response = await this.callApi('post','/app/addreview',this.reviewForm)
-      if(response.status == 201 || response.status == 200){
-        this.s('Review Added Successfully!');
-        this.reviewForm.productId=-1
-        this.reviewForm.content=''
-        this.reviewForm.rating=0
-        this.getReviews();
-      }else this.swr();
-    },
-    async getReviews(){
-      const response = await this.callApi('get',`/app/reviews/${this.productDetails.id}`);
-      if(response.status){
-        this.allReviews = response.data
-      }else this.swr();
-    }
+    // async addReview(){
+    //   if(!this.authUser){
+    //         this.i('Please Login first!')
+    //         return this.$router.push(`/signIn?callback=${this.$route.path}`)
+    //     }
+    //   if(this.reviewForm.content.trim()==''){
+    //    return this.i('Description Required!')
+    //   }
+    //   if(this.reviewForm.rating==0){
+    //     return this.i("Rating required!")
+    //   }
+    //   this.reviewForm.userId = this.authUser.id
+    //   this.reviewForm.productId = this.productDetails.id
+    //   const response = await this.callApi('post','/app/addreview',this.reviewForm)
+    //   if(response.status == 201 || response.status == 200){
+    //     this.s('Review Added Successfully!');
+    //     this.reviewForm.productId=-1
+    //     this.reviewForm.content=''
+    //     this.reviewForm.rating=0
+    //     this.getReviews();
+    //   }else this.swr();
+    // },
+    // async getReviews(){
+    //   const response = await this.callApi('get',`/app/reviews/${this.productDetails.id}`);
+    //   if(response.status){
+    //     this.allReviews = response.data
+    //   }else this.swr();
+    // }
   },
   async asyncData({app,redirect,params,store}){
         try {
@@ -393,7 +372,7 @@ export default {
                     allVariation :response.data.data[0].product_variation,
                     variationproduct :  response.data.variationproducts,
                     customerRating :response.data.data[0].average_rating?response.data.data[0].average_rating.rating : 0,
-                    allReviews :response.data.data[0].review,
+                    // allReviews :response.data.data[0].review,
                     productVariation: productVariation,
                 }
             }
