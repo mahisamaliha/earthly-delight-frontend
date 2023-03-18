@@ -506,8 +506,6 @@ export default {
 
     async handleRemove(file, fileList) {
       let image = this.formValue.productImage;
-      // this.editData.image =
-      //   "https://cameraworldapi.dreamsgallerybd.com/profileImages/download.jpg";
       this.$refs.editDataUploads.clearFiles();
       const res = await this.callApi("post", "/app/delete_image", {
         imageName: image,
@@ -546,10 +544,6 @@ export default {
       this.modalImageUrl = item;
       this.visible = true;
     },
-
-    // changeMenu(query){
-    //     this.categoryValue.menuId=query
-    // },
 
     clearErrorMessage() {
       this.errorMessages = {
@@ -648,7 +642,6 @@ export default {
         if (res.status == 422) {
           for (let i in res.data.errors) {
             this.errors = res.data.errors;
-            // this.e(res.data.errors[i][0]);
           }
         } else {
           this.swr();

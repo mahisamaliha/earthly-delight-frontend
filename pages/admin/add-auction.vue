@@ -78,14 +78,17 @@
                         </FormItem>
 
                         <FormItem 
-                        label="Current Bid" 
-                        :error="errorMessages.current_bid" 
-                        :required="true">
+                            label="Current Bid" 
+                            :error="errorMessages.current_bid" 
+                            :required="true">
                             <Input type="number" style="width: 100%" placeholder="Current Bid"
                                 v-model="formValue.current_bid"></Input>
                         </FormItem>
 
-                        <FormItem label="thumbnail Display image" :error="errorMessages.image" :required="true">
+                        <FormItem 
+                            label="thumbnail Display image" 
+                            :error="errorMessages.image" 
+                            :required="true">
                             <div>
                                 <Upload ref="uploads" type="drag" :multiple="false" :show-upload-list="true"
                                     :on-success="handleImageSuccess" :format="['jpg', 'jpeg', 'png']"
@@ -142,12 +145,20 @@
                                 v-model="editValue.current_bid"></Input>
                         </FormItem>
 
-                        <FormItem label="thumbnail Display image" :error="editErrorMessages.image" :required="true">
+                        <FormItem 
+                            label="thumbnail Display image" 
+                            :error="editErrorMessages.image" 
+                            :required="true">
                             <div>
-                                <Upload ref="uploads" type="drag" :multiple="false" :show-upload-list="true"
-                                    :on-success="handleImageSuccess" :format="['jpg', 'jpeg', 'png']"
-                                    :on-format-error="handleFormatError" :on-error="handleError"
-                                    :on-exceeded-size="handleMaxSize" :on-remove="handleRemove" :max-size="2048"
+                                <Upload ref="uploads" type="drag" 
+                                    :multiple="false" :show-upload-list="true"
+                                    :on-success="handleImageSuccess" 
+                                    :format="['jpg', 'jpeg', 'png']"
+                                    :on-format-error="handleFormatError" 
+                                    :on-error="handleError"
+                                    :on-exceeded-size="handleMaxSize" 
+                                    :on-remove="handleRemove" 
+                                    :max-size="2048"
                                     action="http://127.0.0.1:8000/app/auction_upload">
                                     <div style="padding: 5px 0">
                                         <Icon type="ios-cloud-upload" size="22" style="color: #3399ff"></Icon>
@@ -299,6 +310,7 @@ export default {
         clearErrorMessage() {
             this.errorMessages = {
                 price: "",
+                image: "",
                 bidding_list: "",
                 current_timer: "",
                 description: "",
@@ -307,6 +319,7 @@ export default {
             };
             this.editErrorMessages = {
                 price: "",
+                image: "",
                 bidding_list: "",
                 current_timer: "",
                 description: "",
@@ -324,10 +337,11 @@ export default {
                 this.editValue.bidding_list = this.auctions[index].bidding_list;
                 this.editValue.current_timer = this.auctions[index].current_timer;
                 this.editValue.description = this.auctions[index].description;
-                this.imageName = this.auctions[index].image;
                 this.editValue.highest_bid = this.auctions[index].highest_bid;
                 this.editValue.current_bid = this.auctions[index].current_bid;
-
+                this.editValue.image = this.auctions[index].image;
+                this.imageName = this.auctions[index].image;
+                
                 this.editModal = true;
             }
         },

@@ -70,14 +70,14 @@
 
         <div class="cart-section--bill">
           <h4>Cart Totals</h4>
-          <div class="subtotal">
+          <!-- <div class="subtotal">
             <h5>Subtotal</h5>
             <h5>৳ {{ this.order.invoiceTotal }}</h5>
-          </div>
-          <div v-if="(discount > 0)" class="subtotal">
+          </div> -->
+          <!-- <div v-if="(discount > 0)" class="subtotal">
             <h5>Discount</h5>
             <h5>{{ discount }}%</h5>
-          </div>
+          </div> -->
           <div class="total">
             <h5>Total</h5>
             <h5>৳ {{ totalCostWithShipping }}</h5>
@@ -95,7 +95,6 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  components: {},
   data() {
     return {
       total: 0,

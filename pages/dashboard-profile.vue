@@ -83,31 +83,17 @@
       </div>
     </section>
 
-    <!--***************Footer Section***************-->
-
-    <!-- <BottomContainer /> -->
   </div>
 </template>
 
 <script>
-// import Navbar from "/components/navbar";
-// import BottomContainer from "/components/footer";
 export default {
-  components: {
-    // Navbar,
-    // BottomContainer,
-  },
-  data() {
-    return {
-      //authUser: "",
-    };
-  },
 
   methods: {
     async logout() {
       try {
-        this.$store.commit("setAuthInfo", false);
-        this.setCookie("token", null);
+        this.$store.commit("setAuthInfo", false); //user is no longer authenticated
+        this.setCookie("token", null); //clear user's token from browser
         const res = await this.callApi("get", "/app/logout");
         if (res.status == 200) {
           window.location = "/";
