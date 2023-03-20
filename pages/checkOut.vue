@@ -50,14 +50,12 @@
                   v-model="order.billingCity"
                   placeholder="Select Shipping City"
                   @on-change="changeBillingCity"
-                  filterable
-                >
+                  filterable>
                   <Option
                     v-for="(item, index) in cities"
                     :key="index"
                     :value="item.name"
-                    >{{ item.name }}</Option
-                  >
+                    >{{ item.name }}</Option>
                 </Select>
               </div>
             </div>
@@ -134,8 +132,7 @@
             <div
               class="order-list--item order-list--body"
               v-for="(item, index) in cartItem"
-              :key="index"
-            >
+              :key="index">
               <h4 class="order-list--item---title">
                 {{ item.vproduct.productName }} × {{ item.quantity }}
               </h4>
@@ -166,7 +163,6 @@
                 ৳ {{ totalCostWithShipping }}
               </p>
             </div>
-            <button>Place Order</button>
           </div>
         </div>
       </div>
@@ -222,36 +218,14 @@ export default {
       cities: [],
       areas: [],
       shippingAreas: [],
-
-      form_data: {
-        name: "",
-        email: "",
-        contact: "",
-        username: "",
-        password: "",
-        cpassword: "",
-      },
       settings: {
         refererBonus: 0,
         isShippingFree: 0,
-      },
-
-      form_login: {
-        contact: "",
-        password: "",
-      },
-
-      buttons: {
-        bKash: 1,
-        gift: 0,
-        dGpay: 0,
-        voucher: 0,
       },
       selected: {
         billingCity: "",
         billingZone: "",
         billingArea: "",
-
         shippingCity: "",
         shippingZone: "",
         shippingArea: "",
@@ -292,26 +266,6 @@ export default {
 
       this.$store.commit("order", order);
     },
-    changeShippingCity() {
-      let index = this.cities.findIndex(
-        (d) => d.name == this.shippingDetails.shippingCity
-      );
-      if (index > -1) {
-        this.selected.shippingCity = this.cities[index].id;
-      }
-      this.selected.shippingZone = "";
-      this.shippingDetails.shippingZone = "";
-      this.shippingDetails.shippingArea = "";
-      this.selected.shippingArea = "";
-    },
-    changeShippingArea() {
-      let index = this.areas.findIndex(
-        (d) => d.name == this.shippingDetails.shippingArea
-      );
-      if (index > -1) {
-        this.selected.shippingArea = this.areas[index].id;
-      }
-    },
     async changeShippingPrice(){
 
     let order  = this.order;
@@ -344,7 +298,7 @@ export default {
       return;
     }
 
-    if(order.billingZone == undefined || order.billingZone == '') return this.i('Zone is required!')
+    if(order.billingZone == undefined || order.billingZone == '') return
     if(this.zones.length  ==0) return
     let index = this.zones.findIndex(d => d.zoneName == order.billingZone )
     if(index > -1) {
@@ -483,61 +437,6 @@ export default {
       console.log(value-reminder);
       return value - reminder;
     },
-    checkbillingZone() {
-      let order = this.order;
-      if (this.authUser) {
-        if (!order.name) order.name = this.authUser.name;
-        if (!order.email) order.email = this.authUser.email;
-        if (!order.contact) order.contact = this.authUser.contact;
-        if (!order.billingAddress)
-          order.billingAddress = this.authUser.customer.address
-            ? this.authUser.customer.address
-            : "";
-        if (!order.billingZone) {
-          if (this.authUser.customer && this.authUser.customer.zoneId) {
-            let index = this.zones.findIndex(
-              (d) => d.id == this.authUser.customer.zoneId
-            );
-            if (index > -1) {
-              order.billingZone = this.zones[index].zoneName;
-              this.selected.billingZone = this.zones[index].id;
-            }
-          }
-        }
-        if (!order.billingCity) {
-          if (this.authUser.customer && this.authUser.customer.cityId) {
-            let index = this.cities.findIndex(
-              (d) => d.id == this.authUser.customer.cityId
-            );
-            if (index > -1) {
-              console.log("billing city");
-              order.billingCity = this.cities[index].name;
-              this.selected.billingCity = this.cities[index].id;
-            }
-          }
-        }
-        if (!order.billingArea) {
-          if (this.authUser.customer && this.authUser.customer.areaId) {
-            let index = this.areas.findIndex(
-              (d) => d.id == this.authUser.customer.areaId
-            );
-            if (index > -1) {
-              order.billingArea = this.areas[index].name;
-              this.selected.billingArea = this.areas[index].id;
-            }
-          }
-        }
-        if (!order.postCode)
-          order.postCode = this.authUser.customer.postCode
-            ? this.authUser.customer.postCode
-            : "";
-      } else {
-        console.log("not login");
-      }
-      this.$store.commit("order", order);
-      console.log('hello');
-      this.changeShippingPrice();
-    },
     async getAreas() {
       const res = await this.callApi(
         "get",
@@ -636,14 +535,6 @@ export default {
       cost = this.autoRound(cost);
       if (this.order.shippingPrice > 0) cost = parseFloat(cost) + parseFloat(this.order.shippingPrice);
       return cost
-      return cost;
-    },
-    discountShow() {
-      let cost = parseInt(this.order.discount);
-      if (this.order.referralCode)
-        cost += -parseInt(this.settings.refererBonus);
-
-      return cost;
     },
     filterZones() {
       if (this.selected.billingCity) {
@@ -653,7 +544,6 @@ export default {
             newZones.push(d);
           }
         }
-
         return newZones;
       } else return this.zones;
     },
@@ -665,29 +555,11 @@ export default {
             newZones.push(d);
           }
         }
-
         return newZones;
       } else return this.areas;
     },
-    ShippingZones() {
-      if (this.selected.shippingCity) {
-        let newZones = [];
-        for (let d of this.zones) {
-          if (d.city_id == this.selected.shippingCity) {
-            newZones.push(d);
-          }
-        }
-
-        return newZones;
-      } else return this.zones;
-    },
     isAreaEnable() {
       if (this.selected.billingZone != "" && this.selected.billingCity != "")
-        return false;
-      else return true;
-    },
-    isShippingAreaEnable() {
-      if (this.selected.shippingZone != "" && this.selected.shippingCity != "")
         return false;
       else return true;
     },
@@ -698,7 +570,6 @@ export default {
       myOrder.paymentType = "bKash";
       this.$store.commit("order", myOrder);
     } else {
-      // this.$ls.set("myOrder", JSON.stringify(this.order));
     }
     if (this.order.discount == 0) this.checkMemberShip();
     let order = this.order;

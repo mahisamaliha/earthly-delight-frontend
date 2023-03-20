@@ -97,6 +97,17 @@ export default {
             this.$router.push('/cart')
             return
         }
+        if (this.callWishListOb) {
+          let ob = {
+            productId : this.callWishListOb.id,
+          };
+          const res =await this.callApi('post','/app/wishList',ob);
+          if (res.status == 200) {
+            this.s("Added to wishlist !");
+            this.$store.commit("setCallWishListOb", null);
+          }
+        }
+        if (this.$route.query.callback) return this.$router.push(this.$route.query.callback);
         window.location = "/";
       }
       else if(res.status == 422){
@@ -123,6 +134,7 @@ export default {
             password: this.data.password,
           };
           this.$store.commit("setUnauthorizedCredential", emailPassword);
+          // this.e(res.data.msg);
           this.$router.push(`/account-activation`);
       }
       else this.swr();
@@ -132,6 +144,7 @@ export default {
   computed:{
       ...mapGetters({
           callCartOb:'getCallCartOb',
+          callWishListOb:'getCallWishListOb',
       })
   },
   mounted() {

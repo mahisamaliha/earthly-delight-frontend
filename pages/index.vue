@@ -41,7 +41,7 @@
       </hooper>
     </section>
 
-    <!--**********Featured Category Section***********                            static -->
+    <!--**********Featured Category Section***********-->
 
     <section class="featured-category__section bgWhite pb-70 pt-100">
       <div class="container">
@@ -101,14 +101,14 @@
       </div>
     </section>
 
-    <!--****************Picture Section******************                         static -->
+    <!--****************Picture Section******************-->
     <section>
       <figure>
         <img src="assets/img/picture.png" alt="">
       </figure>
     </section>
 
-    <!--***************New Product Section****************                        dynamic-->
+    <!--***************New Product Section****************-->
 
     <section class="new-product__section bg-gray pt-100 pb-100">
       <div class="container">
@@ -136,7 +136,6 @@
                     <h3 class="product-card__content--title">
                       {{ data.productName }}
                     </h3>
-                    <!-- bujsi na -->
                     <p class="product-card__content--price" v-if="data.discount">
                       ৳
                       {{
@@ -149,7 +148,6 @@
                     <p class="product-card__content--price" v-else>
                       ৳ {{ data.sellingPrice }}
                     </p>
-                    <!--  -->
                   </div>
                 </div>
               </nuxt-link>
@@ -161,7 +159,7 @@
       </div>
     </section>
 
-    <!--***************Trending Offers Section****************                     dynamic-->
+    <!--***************Trending Offers Section****************-->
 
     <section class="trending-offers__section bgWhite pb-100 pt-100">
       <div class="container">
@@ -189,7 +187,7 @@
       </div>
     </section>
 
-    <!-- ***************News-letter Section****************                          static -->
+    <!-- ***************News-letter Section****************-->
 
     <section class="newsletter-section pt-100 pb-100">
       <div class="container">
@@ -219,7 +217,7 @@
       </div>
     </section>
 
-    <!--***************Recent Article Section****************                         static -->
+    <!--***************Recent Article Section****************-->
 
     <section class="article--section pt-100 pb-70">
       <div class="container">

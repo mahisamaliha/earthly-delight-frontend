@@ -156,9 +156,6 @@
                 :autosize="{ minRows: 2, maxRows: 5 }"
                 placeholder="Write description..."
               ></Input>
-              <!-- <span class="text-danger" v-if="errorMessages.brief_description">{{
-                  errorMessages.brief_description[0]
-                }}</span> -->
             </FormItem>
 
             <FormItem
@@ -358,6 +355,7 @@
           <Button @click="hideAddModal">Cancel</Button>
         </div>
       </Modal>
+      <!-- Image will display when the model is visible -->
       <Modal title="View Image" v-model="visible">
         <img :src="modalImageUrl" v-if="visible" style="width: 100%" />
       </Modal>
@@ -390,12 +388,10 @@ export default {
       },
       subcategoryModal: false,
       subcategoryValue: {
-        // id: '',
         catName: "",
         group_id: "",
       },
       subcategoryErrorMessages: {
-        // id: '',
         catName: "",
         group_id: "",
       },
@@ -728,6 +724,7 @@ export default {
         if (this.products.length == res.data.data.length) {
           this.noProductRemaining = true;
         }
+        //if lenth remaining push new data
         for (let i in res.data.data) {
           console.log("pushing data");
           let d = res.data.data[i];

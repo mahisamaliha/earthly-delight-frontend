@@ -32,7 +32,7 @@
                     </div>
                     <div class="auction-area">
                         <div class="bidding-area bg-gray">
-                            <h4>{{ auction.price }}</h4>
+                            <h4 class="bidding-area--price">{{ auction.price }} ৳</h4>
                             <h4 class="bidding-area--number">Current Bid ({{ auction.bidding_list }} bids)</h4>
                             <h4 class="bidding-area--hours"><i class="lar la-clock"></i> {{ auction.current_timer }} hrs
                                 remaining</h4>
@@ -68,7 +68,7 @@ export default {
             message: null,
             auctions: [],
             user: [],
-            value : 631,
+            value : 673,
         };
     },
     methods: {
@@ -89,7 +89,6 @@ export default {
                     auction_id: auctionId,
                     bidding_price: this.value
                 };
-                
                 try {
                     const response = await this.callApi('post', '/app/auction-tracking', data);
                     if (response.status == 200) {                        
@@ -102,22 +101,18 @@ export default {
                             console.log("Error to create or update bid info!");
                         }
                     }
-                    
-
                 } catch (error) {
                     console.error(error,data);
                 }
             } else {
                 this.message = "Error calling API";
             }
-            
-            
         },
         increment() {
             this.value++
         },
         decrement() {
-            if (this.value > 601) {
+            if (this.value > 673) {
                 this.value--
             }
         }
@@ -125,6 +120,5 @@ export default {
     created() {
         this.callAuction();
     },
-
 };
 </script>

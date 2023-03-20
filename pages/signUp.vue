@@ -138,9 +138,6 @@ export default {
         return this.e("Password is required");
       if (this.data.password.trim() !== this.data.password_confirmation.trim())
         return this.e("Confirm Password Mismatch!!");
-      // if (this.$refs.selected.checked == false) {
-      //   return this.e("You have to accept our terms and conditions");
-      // }
 
       this.data.name = this.firstName + " " + this.lastName;
 
@@ -165,13 +162,11 @@ export default {
         this.s(
           "Registration successful! A One-Time Password (OTP) has been sent to your registered mobile number."
         );
-        // if(this.$route.query.callback) return this.$router.push(this.$route.query.callback)
         this.$router.push(
           `/account-activation?callback=${
             this.$route.query.callback ? this.$route.query.callback : ""
           }`
         );
-        // else this.$router.push('/')
       } else if (res.status == 400) {
         for (let d of res.data) {
           this.e(d.msg);

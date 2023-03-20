@@ -49,10 +49,6 @@ export default {
   components: {},
   data() {
     return {
-      isSidebar: false,
-      isSearchbar: false,
-      isCart: false,
-      mobileDropdownIndex: -1,
       form_data: {
         token: "",
         contact: "",
@@ -75,41 +71,6 @@ export default {
     }),
   },
   methods: {
-    showSidebar() {
-      this.isSidebar = true;
-    },
-    hideSidebar() {
-      this.isSidebar = false;
-    },
-    showSearchbar() {
-      this.isSearchbar = true;
-    },
-    hideSearchbar(e) {
-      if (this.isSearchbar) {
-        let target = e.target;
-        var container = this.$refs.searchBox;
-        var source = this.$refs.searchBoxSource;
-
-        if (!source.contains(target) && !container.contains(target)) {
-          this.isSearchbar = false;
-        }
-      }
-    },
-    showCart() {
-      this.isCart = true;
-    },
-    hideCart() {
-      this.isCart = false;
-    },
-
-    mobileMenuDropdown(index) {
-      if (this.mobileDropdownIndex === index) {
-        this.mobileDropdownIndex = -1;
-      } else {
-        this.mobileDropdownIndex = index;
-      }
-    },
-
     handleOnComplete(value) {
       console.log("OTP completed: ", value);
       this.form_data.token = value;
@@ -141,8 +102,6 @@ export default {
         this.$store.dispatch("setToken", res.data.token);
         this.setCookie("token", res.data.token);
         this.s("Login successful !");
-        // if (this.$route.query.callback)
-        //   return this.$router.push(this.$route.query.callback);
         this.$router.push("/");
       } else {
         if (res.status == 404) this.w(res.data.msg);
@@ -167,13 +126,6 @@ export default {
         this.swr();
       }
     },
-  },
-
-  mounted() {
-    document.addEventListener("click", this.hideSearchbar);
-  },
-  beforeDestroy() {
-    document.removeEventListener("click", this.hideSearchbar);
   },
 };
 </script>

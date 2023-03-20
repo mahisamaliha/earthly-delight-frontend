@@ -17,8 +17,8 @@
                                     <th scope="col">Price</th>
                                     <th scope="col">Current Bidding</th>
                                     <th scope="col">Remaining Time</th>
-                                    <th scope="col">Highest Bid</th>
-                                    <th scope="col">Current Bid</th>
+                                    <!-- <th scope="col">Highest Bid</th>
+                                    <th scope="col">Current Bid</th> -->
                                     <th scope="col">Update</th>
                                     <th scope="col">Remove</th>
                                 </tr>
@@ -32,8 +32,8 @@
                                     <td>{{ auction.price }}</td>
                                     <td>{{ auction.bidding_list }}</td>
                                     <td>{{ auction.current_timer }}</td>
-                                    <td>{{ auction.highest_bid }}</td>
-                                    <td>{{ auction.current_bid }}</td>
+                                    <!-- <td>{{ auction.highest_bid }}</td>
+                                    <td>{{ auction.current_bid }}</td> -->
                                     <td>
                                         <i class="lni lni-pencil" @click="showEdit(index)"></i>
                                     </td>
@@ -290,7 +290,7 @@ export default {
         handleError(res, file) {
             this.$Notice.warning({
                 title: "The file format is incorrect",
-                desc: `${file.errors.file.length //descrip of error
+                desc: `${file.errors.file.length
                     ? file.errors.file[0]
                     : "Something went wrong!"
                     }`,

@@ -108,64 +108,39 @@
         gap: 50px;
         width: 50%;
 
-        // .bidding {
-        //     &-area {
-        //         padding: 30px;
-        //         width: 50%;
-
-        //         h4 {
-        //             margin-bottom: 15px;
-        //         }
-
-        //         &--number {
-        //             font-size: 16px;
-        //             font-weight: 400;
-        //         }
-
-        //         &--hours {
-        //             font-size: 16px;
-        //             font-weight: 400;
-        //         }
-
-        //         &--highest {
-        //             margin-top: 10px;
-        //             font-size: 18px;
-        //             font-weight: 500;
-        //         }
-
-        //         .bid {
-        //             display: flex;
-        //             flex-direction: row;
-        //             gap: 20px;
-
-        //             button {
-        //                 background-color: $secondaryColor;
-        //                 padding: 5px;
-        //                 width: 150px;
-        //                 border-radius: 6px;
-        //                 color: #ffffff;
-        //                 font-size: 18px;
-        //             }
-
-        //             .icon {
-        //                 display: flex;
-        //                 flex-direction: row;
-        //                 gap: 15px;
-        //                 align-items: center;
-        //                 padding: 10px;
-        //                 background-color: $secondaryColor;
-        //                 border-radius: 5px;
-        //                 color: #ffffff;
-        //                 width: 150px;
-        //                 justify-content: center;
-        //                 font-size: 18px;
-
-        //             }
-        //         }
-        //     }
-        //     &-details {
-        //         width: 50%;
-        //     }
-        // }
+    }
+}
+@include breakpoint-max(1199px) {
+    .auction {
+        &-img {
+            gap : 30px;
+            .img {
+                width: 60%;
+            }
+        }
+    }
+}
+@include breakpoint-max(991px) {
+    .auction {
+        &-img {
+            gap : 30px;
+            flex-direction: column;
+            .img {
+                width: 100%;
+            }
+        }
+        &-area {
+            width: 100%;
+            .bidding-area {
+                text-align: center;
+                &--price {
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+                .bid {
+                    justify-content: center;
+                }
+            }
+        }
     }
 }

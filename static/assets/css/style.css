@@ -2955,6 +2955,9 @@ h1, h2, h3, h4, h5, h6 {
 .product-picture--max---card .product-image img {
   max-width: 650px;
   width: 100%;
+  height: 400px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .product-picture--min {
   flex: 0;
@@ -3134,7 +3137,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .tab-section .section-header__action--tab li {
   font-size: 24px;
-  color: #3f3f3f;
+  color: #000000;
   margin-bottom: 0;
 }
 .tab-section .section-header__action--tab li.active {
@@ -3452,6 +3455,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (max-width: 767px) {
   .product-details .title {
+    padding-top: 30px;
     font-size: 16px;
     margin-bottom: 15px;
   }
@@ -3757,7 +3761,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .billing-section .shipping-information .payment button {
   border: none;
-  background: #ff0000;
+  background: #008631;
   padding: 20px 20px;
   border-radius: 5px;
   color: #ffffff;
@@ -5586,6 +5590,36 @@ h1, h2, h3, h4, h5, h6 {
   width: 50%;
 }
 
+@media (max-width: 1199px) {
+  .auction-img {
+    gap: 30px;
+  }
+  .auction-img .img {
+    width: 60%;
+  }
+}
+@media (max-width: 991px) {
+  .auction-img {
+    gap: 30px;
+    flex-direction: column;
+  }
+  .auction-img .img {
+    width: 100%;
+  }
+  .auction-area {
+    width: 100%;
+  }
+  .auction-area .bidding-area {
+    text-align: center;
+  }
+  .auction-area .bidding-area--price {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .auction-area .bidding-area .bid {
+    justify-content: center;
+  }
+}
 .article-sub--section figure img {
   max-width: 700px;
   width: 100%;
